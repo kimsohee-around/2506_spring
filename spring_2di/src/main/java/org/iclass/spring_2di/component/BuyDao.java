@@ -2,6 +2,7 @@ package org.iclass.spring_2di.component;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 public class BuyDao {
   private List<String> sales;
 
-  public BuyDao(List<String> sales) {
+  // List<String> 타입의 bean 이 존재하면 생성자 주입. 없으면 비어있는 리스트로 대입
+  public BuyDao(@Qualifier("shopBean") List<String> sales) {
     this.sales = sales;
     log.info("BuyDao 생성자 - sales : {}", this.sales);
   }
