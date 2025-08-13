@@ -14,7 +14,8 @@ public class Spring2diApplication {
 		// context 를 이용하여 bean 저장소에 접근. bean 가져오기 할 수 있습니다.
 		ApplicationContext context = SpringApplication.run(Spring2diApplication.class, args);
 
-		String[] beans = context.getBeanDefinitionNames(); // 빈 모두 가져오기. (이름 String 을가져오기)
+		String[] beans = context.getBeanDefinitionNames();
+		// 빈 모두 가져오기. (이름 String 을가져오기)
 		for (String bean : beans) {
 			log.info("\t bean 이름 : {}", bean);
 		}
