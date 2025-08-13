@@ -2,11 +2,29 @@
   "configurations": [
     {
       "type": "java",
+      "name": "CustomerApplication",
+      "request": "launch",
+      "mainClass": "org.iclass.spring_2di.component.CustomerApplication",
+      "projectName": "spring_2di",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=54015 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=spring_2di"
+    },
+    {
+      "type": "java",
       "name": "Spring Boot-DemoApplication<spring_1demo>",
       "request": "launch",
       "cwd": "${workspaceFolder}",
       "mainClass": "org.iclass.spring_1demo.DemoApplication",
       "projectName": "spring_1demo",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-Spring2diApplication<spring_2di>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "org.iclass.spring_2di.Spring2diApplication",
+      "projectName": "spring_2di",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
     }
