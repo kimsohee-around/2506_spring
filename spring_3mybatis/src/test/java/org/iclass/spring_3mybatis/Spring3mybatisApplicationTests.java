@@ -41,4 +41,5 @@ class Spring3mybatisApplicationTests {
 		assertNotNull(productMapper);
 	}
 
+	
 }
