@@ -6,10 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.iclass.spring_3mybatis.dto.BuyDto;
 import org.iclass.spring_3mybatis.dto.CustomerBuyDto;
-import org.springframework.stereotype.Component;
 
 @Mapper
-// @Component
 public interface BuyMapper {
   List<BuyDto> selectByCustomer(String customer_id);
 

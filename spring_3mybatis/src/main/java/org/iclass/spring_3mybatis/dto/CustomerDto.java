@@ -15,7 +15,7 @@ public class CustomerDto {
     private final String customerId;
     private final String name;
     private final String email;
-    private final int age;
+    private final Integer age; // int 로 하면 안되는 경우 : null 값이 있을 때(int 에 저장 못합니다.)
     private final Date regDate;
 }
 // 과거 마이바티스 3.4 이전 버전은 getter,setter,기본생성자 없으면 오류 발생.

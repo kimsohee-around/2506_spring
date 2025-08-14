@@ -9,7 +9,7 @@
    <select id="selectByPk" parameterType="String" resultType="ProductDto">
       SELECT * FROM TBL_PRODUCT WHERE pcode = #{pcode}
    </select>
-   <select id="selectByKeyword" parameterType="String" resultType="ProductDto">
+   <select id="selectByKeywor" parameterType="String" resultType="ProductDto">
       <!-- n 개 행 집합을 결과로 예상한다면 resultType 은 컬렉션 자료구조의 제넉릭타입 -->
       select * from tbl_product where pname like '%' || #{keyword} ||'%'
    </select>
