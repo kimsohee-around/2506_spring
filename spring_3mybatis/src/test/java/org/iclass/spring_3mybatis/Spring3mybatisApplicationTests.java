@@ -15,8 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 class Spring3mybatisApplicationTests {
 	// ✅ 단위 테스트 내용 : mapper 인터페이스의 구현체의 동작 확인.
 	// 참고 : 테스트 클래스는 필드 주입 사용합니다.
-	// 테스트 메소드는 success, fail 로 결과를 표시합니다.
-	// ㄴ assertXXXX(테스트 대상) 입니다. XXXX 은 기대값의 상태를 나타내는 키워드
+	// @Test 테스트 메소드는 success, fail 로 결과를 표시합니다.
+	// ㄴ 검증 메소드 assertXXXX(테스트 대상) 입니다. XXXX 은 기대값의 상태를 나타내는 키워드
 
 	@Autowired
 	private BuyMapper buyMapper;

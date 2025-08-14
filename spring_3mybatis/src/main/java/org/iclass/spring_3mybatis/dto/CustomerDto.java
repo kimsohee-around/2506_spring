@@ -2,11 +2,13 @@ package org.iclass.spring_3mybatis.dto;
 
 import java.sql.Date;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Builder // 커스텀 생성자 대신에 사용.
 @Getter
 @Setter
 @ToString
