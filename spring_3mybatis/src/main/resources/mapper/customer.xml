@@ -2,11 +2,10 @@
 <!DOCTYPE mapper
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="tblcustomer">
+<mapper namespace="">
 <!-- id는 sql 을 찾는 식별값.(개발자 정의) 
-     id로 구별하는 것은 mapper 파일이 많을 때 어려움이 있습니다.
-		 namespace 를 설정하여  "namespace속성값.id값" 으로 dao 에서 사용
-		✅ namespace 식별값은 문자열 지정방식에서는 임의로 설정합니다.
+    Mybatis-Spring 은 namespace 를 반드시 인터페이스의 "패키지이름.인터페이스이름" 로 합니다.
+		인터페이스의 구현체(해당클래스로 만들어진 객체)를 만들때 sql 이 매핑 될 수 있습니다.
  -->
 	<select id="selectByPk" parameterType="String" resultType="CustomerVo">
 	<!-- 매개변수의 값은 타입과 이름으로 매핑 -->

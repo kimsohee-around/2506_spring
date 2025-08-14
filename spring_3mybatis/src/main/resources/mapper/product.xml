@@ -3,7 +3,7 @@
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
    <!-- vs code 확장 프로그램 XML (XML Language Support by Red Hat) 설치해야 자동 완성 합니다.  -->
-<mapper namespace="tblproduct">
+<mapper namespace="">
 <!--  1. VO 클래스 만들기 2. 설정파일에 mapper 와 typeAlias 추가 -->
 <!-- 기존의 TblProductDao 의 SQL 을 여기에서 작성해서 새로운 DAO 만드세요. -->
    <select id="selectByPk" parameterType="String" resultType="ProductVo">

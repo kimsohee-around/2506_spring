@@ -2,6 +2,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Spring3mybatisApplication",
+      "request": "launch",
+      "mainClass": "org.iclass.spring_3mybatis.Spring3mybatisApplication",
+      "projectName": "spring_3mybatis"
+    },
+    {
+      "type": "java",
       "name": "CustomerApplication",
       "request": "launch",
       "mainClass": "org.iclass.spring_2di.component.CustomerApplication",

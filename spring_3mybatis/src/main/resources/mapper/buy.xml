@@ -2,11 +2,11 @@
 <!DOCTYPE mapper
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mybatis.mapper.BuyMapper">
+<mapper namespace="org.iclass.spring_3mybatis.mapper.BuyMapper">
   <!-- tbl_buy 테이블의 기본키는 buy_seq  -->
   <!-- join SQL , 집계 함수..... -->
   <!-- day5_(3)문제_select.sql 의 10번  -->
-  <select id="selectSaleByCustomer" parameterType="string" resultType="CustomerBuyVo">
+  <select id="selectSaleByCustomer" parameterType="string" resultType="CustomerBuyDto">
     <!-- join 결과 컬럼에 매핑되는 vo 클래스를 새로 정의 : CustomerSaleVo -->
       SELECT tp.PCODE,tp.PNAME, tp.PRICE , tp.PRICE*tb.QUANTITY as money
       from TBL_PRODUCT tp
@@ -35,18 +35,17 @@
     order by year
   </select>
 
-  <!-- 0806 문제 -->
-  <select id="selectByCustomer" parameterType="string" resultType="BuyVo">
+  <select id="selectByCustomer" parameterType="string" resultType="BuyDto">
     SELECT *
     from TBL_BUY
     where CUSTOMER_ID=#{customerId}
   </select>
-  <select id="selectByPcode" parameterType="string" resultType="BuyVo">
+  <select id="selectByPcode" parameterType="string" resultType="BuyDto">
     SELECT *
     from TBL_BUY
     where pcode=#{pcode}
   </select>
-  <select id="selectByYear" parameterType="string" resultType="BuyVo">
+  <select id="selectByYear" parameterType="string" resultType="BuyDto">
     SELECT *
     from TBL_BUY
     where to_char(BUY_DATE,'yyyy')=#{year}

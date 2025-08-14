@@ -5,14 +5,13 @@ import java.util.Map;
 
 import org.iclass.spring_3mybatis.dto.BuyDto;
 import org.iclass.spring_3mybatis.dto.CustomerBuyDto;
+import org.springframework.stereotype.Component;
 
+@Component // @Mapper
 public interface BuyMapper {
   List<BuyDto> selectByCustomer(String customer_id);
-
   List<BuyDto> selectByPcode(String pcode);
-
   List<BuyDto> selectByYear(String year);
-
   int selectSumByPcode(String pcode);
 
   // join
