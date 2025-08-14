@@ -1,9 +1,9 @@
-package org.iclass.spring_3mybatis;
+package org.iclass.spring_4restapi;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.iclass.spring_3mybatis.dto.CustomerDto;
-import org.iclass.spring_3mybatis.mapper.CustomerMapper;
+import org.iclass.spring_4restapi.dto.CustomerDto;
+import org.iclass.spring_4restapi.mapper.CustomerMapper;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class CustomerMapperTest {
   }
 
   @Test
-  @Disabled
+  @Disabled // 같은 값으로 insert - 무결성 위반
   void join() {
     int result = customerMapper.insert(
         new CustomerDto("JJangu", "김장구", "jj@korea.kr", 25, null));

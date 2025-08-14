@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   <!-- vs code 확장 프로그램 XML (XML Language Support by Red Hat) 설치해야 자동 완성 합니다.  -->
+<mapper namespace="org.iclass.spring_4restapi.mapper.ProductMapper">
+<!--  1. VO 클래스 만들기 2. 설정파일에 mapper 와 typeAlias 추가 -->
+<!-- 기존의 TblProductDao 의 SQL 을 여기에서 작성해서 새로운 DAO 만드세요. -->
+   <select id="selectByPk" parameterType="String" resultType="ProductDto">
+      SELECT * FROM TBL_PRODUCT WHERE pcode = #{pcode}
+   </select>
+   <select id="selectByKeywor" parameterType="String" resultType="ProductDto">
+      <!-- n 개 행 집합을 결과로 예상한다면 resultType 은 컬렉션 자료구조의 제넉릭타입 -->
+      select * from tbl_product where pname like '%' || #{keyword} ||'%'
+   </select>
+  <insert id="insert" parameterType="ProductDto">
+   INSERT INTO TBL_PRODUCT(pcode, category, pname, price) 
+      VALUES(#{pcode}, #{category, jdbcType=VARCHAR}, #{pname}, #{price})
+      <!-- category 컬럼은 null 허용. 널 값 처리를 위해서 jdbcType=VARCHAR(NUMBERIC) 옵션 추가 -->
+  </insert>
+  <update id="update" parameterType="ProductDto">
+   UPDATE TBL_PRODUCT SET pname = #{pname}, price = #{price} WHERE pcode = #{pcode}
+  </update>
+  <delete id="delete" parameterType="string">  
+   DELETE FROM tbl_product WHERE pcode = #{pcode}
+  </delete>
+</mapper> 
