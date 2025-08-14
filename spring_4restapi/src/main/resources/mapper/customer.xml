@@ -22,7 +22,7 @@
 	     그 이후는 직접 필드명으로 접근해서 가져온다.🔥 vo 클래스에 선언된 필드(변수)명을 매개변수 이름으로 '꼭' 합니다.
 	 -->
 		insert into tbl_customer# (customer_id,name,email,age,reg_date) 
-                    values (#{customerId}, #{name}, #{email}, #{age}, sysdate)
+                    values (#{customerId}, #{name}, #{email,jdbcType=VARCHAR}, #{age,jdbcType=NUMERIC}, sysdate)
 	</insert>
 	<update id="update" parameterType="CustomerDto">
 		update tbl_customer#
