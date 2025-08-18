@@ -1,5 +1,6 @@
 package org.iclass.spring_5webmvc.controller;
 
+import org.iclass.spring_5webmvc.TestDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,8 +15,7 @@ public class TestController_2Parameter {
   @GetMapping("/list")
   public String list(String name, @RequestParam(defaultValue = "0") int age) { // 메소드의 인자는 변수명과 같은 이름 파라미터를 저장.
 
-    log.info("name :  {}", name);
-    log.info("age :  {}", age);
+    log.info("파라미터 name :  {} , age :  {}", name, age);
     return "list"; // list.html
   }
 
@@ -23,7 +23,13 @@ public class TestController_2Parameter {
   @GetMapping("/listA")
   public String listA(String name, int age, String address, String gender) {
 
-    log.info("파라미터 : {} {} {} {}", name, age, address, gender);
+    log.info("파라미터 : {}, {}, {},{}", name, age, address, gender);
     return "list"; // list.html
+  }
+
+  @GetMapping("/listB")
+  public String listB(TestDto dto) {
+    log.info("파라미터 저장 dto : {}", dto);
+    return "list";
   }
 }
