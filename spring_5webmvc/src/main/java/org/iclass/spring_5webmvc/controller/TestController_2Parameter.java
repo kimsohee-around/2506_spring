@@ -1,8 +1,12 @@
 package org.iclass.spring_5webmvc.controller;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 import org.iclass.spring_5webmvc.TestDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +35,16 @@ public class TestController_2Parameter {
   public String listB(TestDto dto) {
     log.info("파라미터 저장 dto : {}", dto);
     return "list";
+  }
+
+  @PostMapping("/list")
+  public String save(TestDto dto) {
+    log.info("파라미터 저장 dto : {}", dto);
+    // 저장,수정,삭제 이후에는 다른 URL 로 리다이렉트
+    // return "redirect:/list"; // list get 요청 파라미터 없이 실행
+    return "redirect:/list?name=" + URLEncoder.encode(dto.getName(), StandardCharsets.UTF_8)
+        + "&age=" + dto.getAge();
+    // 영문숫자 이외의 문자를 쿼리문자열로 백엔드에서 보낼 때, UTF-8 인코딩 필요.
   }
 
 }
