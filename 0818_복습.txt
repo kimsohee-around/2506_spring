@@ -1,0 +1,67 @@
+REST API
+
+REST : 요청하는 방식을 지정한 형식(아키텍처)
+       : RESTful
+
+- 핵심 개념
+
+1) Resource : 자원은 URI(URL) 로 표현.  예시 /api/customers 와 같이 대상이 같으면 같은 URI
+2) Representation : 표현. 입력/출력값을 나타내는 방식. json 또는 XML
+3) HTTP Method : 자원 대상의 동작(행위)에 따른 요청 방식
+              ㄴ GET, POST, PUT, DELETE  등
+
+- 어노테이션
+1) REST 요청을 처리하는 컨트롤러 표시
+@RestController  : @Controller 와 @ResponseBody (ResponseEntity 응답 설정)
+
+2) 어떤 요청 URI 와 매핑되는지 핸들러 메소드(컨트롤러 클래스)에 표시
+   ✔✔ 핸들러 메소드는 특정 요청 URI 를 처리하는 메소드 입니다. 
+          ㄴ=> 메소드 인자는 HTTP 요청 입력값, 메소드 리턴은 HTTP 응답 출력값을 작성합니다.
+          ㄴ=> 입출력 데이터 형식은 json 문자열.  자바객체로 변환이 필요합니다. 
+                 스프링부트가 선언된 DTO 타입으로 자동 변환
+                   : 요청 입력은 메소드 인자로 DTO 선언 
+                   : 응답 출력은 ResponseEntity 의 body(응답 데이터 본문) 로 작성하면 알아서 json 으로 변환
+@RequestMapping(
+   method = {RequestMethod.GET}
+)
+↓
+메소드 방식에 따라 다음과 같이 사용합니다.
+@GetMapping , @PostMapping , @PutMapping, @PatchMapping, @DeleteMapping
+↓
+value 속성으로 매핑되는 URI 를 설정합니다. (value 는 기본속성. 생략하고 값만 표시)
+
+3) URI 로 전달되는 경로 변수값을 저장하기 위해 지정하는 어노테이션
+   핸들러 메소드 인자에서 @PathVariable 사용.
+
+4) 요청의 body  json 문자열 입력을 메소드 인자로 DTO 선언하면 자동으로 객체 변환하는 어노테이션
+   @RequestBody
+
+- 개발한 클래스들의 의존성
+
+    1) Controller  : HTTP 요청처리와 응답 전송 담당. 각 URI 와 매핑되는 "핸들러 메소드"로 구성.
+         ↑↑↑  (Bean 주입)         
+    2) Service   :  업무 처리 로직을 담당
+         ↑↑↑  (Bean 주입)
+    3) Dao(Mapper, Repository) : SQL 실행을 담당  
+(데이터베이스 연결은 ? 스프링부트는 HikariCP를 커넥션 풀 제공. 
+		   설정은 application.properties에서 DataSource 객체 생성 정보값 저장)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -34,6 +34,16 @@
       "projectName": "spring_2di",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-Spring4RestapiApplication<spring_4restapi>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "org.iclass.spring_4restapi.Spring4RestapiApplication",
+      "projectName": "spring_4restapi",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }
