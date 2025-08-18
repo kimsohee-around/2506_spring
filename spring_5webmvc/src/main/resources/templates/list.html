@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>파라미터 연습</title>
+</head>
+
+<body>
+  <h1>파라미터</h1>
+  <p>터미널 로그 확인하세요.!!!
+    실행 <a href="/list?name=tom&age=23">http://localhost:8080/list?name=tom&age=23</a> 는 로그 정상 출력.<br>
+    실행 <a href="/list?name=tom">http://localhost:8080/list?name=tom</a> 는 오류. age는 int 로 저장하는데
+    그 때 내부적으로는 Integer.parseInt(문자열) 실행. 파라미터 값은 문자열입니다.
+    이런 경우는 파라미터 기본값을 설정하여 해결 가능.
+  </p>
+  <p>
+    파라미터가 많은 경우
+    <a href="/listA?name=tom&age=23&address=서울&gender=male">
+      http://localhost:8080/listA?name=tom&age=23&address=서울&gender=male</a>
+    파리미터 갯수 만큼 변수를 선언해야 합니다. 그런데 너무 많다면 비효율적입니다.
+    그래서 dto 클래스를 사용합니다. 스프링부트는 파라미터이름과 dto 변수명으로 매핑하여 저장합니다.
+  </p>
+</body>
+
+</html>
