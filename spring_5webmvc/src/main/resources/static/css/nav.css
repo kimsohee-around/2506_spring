@@ -1,0 +1,15 @@
+ul#nav {
+  list-style: none;
+  padding: 0px 20px;
+  display: flex;
+  justify-content: start;
+
+}
+
+ul#nav>li {
+  padding: 0px 20px;
+}
+
+a {
+  text-decoration: none;
+}
