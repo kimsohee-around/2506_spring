@@ -32,4 +32,5 @@ public class TestController_2Parameter {
     log.info("파라미터 저장 dto : {}", dto);
     return "list";
   }
+
 }

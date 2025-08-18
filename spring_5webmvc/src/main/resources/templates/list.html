@@ -26,6 +26,16 @@
     <a href="/listB?name=tom&age=23&address=서울&gender=male">
       http://localhost:8080/listB?name=tom&age=23&address=서울&gender=male</a>
   </p>
+  <h3>POST 요청 처리 예시</h3>
+  <form action="list" method="POST">
+    <!-- dto 와 바로 매핑하여 저장하려면 name 속성값을 dto 변수명과 일치시키기 -->
+    <input type="text" name="name" placeholder="name 입력하세요.">
+    <input type="text" name="age" placeholder="age 입력하세요.">
+    <input type="text" name="address" placeholder="address 입력하세요.">
+    <input type="text" name="gender" placeholder="gender 입력하세요.">
+    <button type="submit">저장</button>
+  </form>
+
 </body>
 
 </html>
