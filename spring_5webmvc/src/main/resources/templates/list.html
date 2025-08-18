@@ -35,8 +35,19 @@
     <input type="text" name="gender" placeholder="gender 입력하세요.">
     <button type="submit">저장</button>
   </form>
-  <h3>파일(이미지, PDF 등등) 전송</h3>
-  
+  <h3>파일(이미지, PDF 등등) 전송 - 반드시 POST 방식</h3>
+  <p>application.properties 파일에 서버에서 업로드 요청이 온 파일을
+    어느 폴더에 저장할 것인지 설정 필요합니다.
+  </p>
+  <p>
+    form 태그의 필수 속성은 method="POST" enctype="multipart/form-data" 입니다.
+    컨트롤러 클래스에서는 파일을 MultipartFile 타입으로 저장해야 합니다.
+  </p>
+  <form action="upload" method="POST" enctype="multipart/form-data">
+    <input type="text" name="title" placeholder="제목 입력">
+    <input type="file" name="uploadFile">
+    <button type="submit">업로드</button>
+  </form>
 
 </body>
 
