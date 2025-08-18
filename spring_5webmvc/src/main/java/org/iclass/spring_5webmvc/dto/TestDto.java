@@ -1,4 +1,4 @@
-package org.iclass.spring_5webmvc;
+package org.iclass.spring_5webmvc.dto;
 
 import lombok.Getter;
 import lombok.Setter;

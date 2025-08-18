@@ -3,7 +3,7 @@ package org.iclass.spring_5webmvc.controller;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-import org.iclass.spring_5webmvc.TestDto;
+import org.iclass.spring_5webmvc.dto.TestDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
