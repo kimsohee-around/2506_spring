@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -11,15 +11,18 @@
 <body>
   <h1>상품 검색</h1>
   <div class="search-form">
-    <form method="post" action="search">
+    <form method="post" action="searchAll">
       <div class="search-row">
         <div class="search-group">
           <label for="searchCode">상품 코드</label>
-          <input type="text" id="searchCode" name=pcode value="${searchDto.pcode}" placeholder="상품코드">
+          <input type="text" id="searchCode" name=pcode th:value="${searchDto!=null? searchDto.pcode : ''}"
+            placeholder="상품코드">
+          <!-- t h : value=" $ { searchDto!=null? searchDto.pcode : ''}" -->
         </div>
         <div class="search-group">
           <label for="searchPname">상품명</label>
-          <input type="text" id="searchPname" name="pname" value="${searchDto.pname}" placeholder="상품명">
+          <input type="text" id="searchPname" name="pname" th:value="${searchDto!=null?searchDto.pname : ''}"
+            placeholder="상품명">
         </div>
       </div>
 
@@ -27,12 +30,16 @@
         <div class="search-group">
           <label>가격 (PRICE)</label>
           <div class="range-group">
-            <input type="number" name="minPrice" th:value="${searchDto.minPrice}" placeholder="최소" min="0">
+            <input type="number" name="minPrice" th:value="${searchDto!=null? searchDto.minPrice :''}" placeholder="최소"
+              min="0">
             <span>~</span>
-            <input type="number" name="maxPrice" th:value="${searchDto.maxPrice}" placeholder="최대" min="0">
+            <input type="number" name="maxPrice" th:value="${searchDto!=null? searchDto.maxPrice : ''}" placeholder="최대"
+              min="0">
           </div>
         </div>
       </div>
+      <button class="btn btn-primary">검색</button>
+      <button type="button" class="btn btn-secondary" onclick="location.href='searchAll'">전체 목록</button>
     </form>
   </div>
   <hr>

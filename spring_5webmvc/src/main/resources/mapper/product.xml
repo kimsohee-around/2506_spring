@@ -9,6 +9,29 @@
       SELECT * FROM TBL_PRODUCT ORDER BY pcode
    </select>
 
+   <select id="searchAll" parameterType="SearchDto" resultType="ProductDto">
+      SELECT * FROM TBL_PRODUCT 
+      <!-- 조건식이 생기면 where 1=1 키워드 추가 됩니다. -->
+      <where>  
+         <!-- pcode 필드에 검색어가 있으면. dto.getPcode() -->
+         <if test="pcode !=null and pcode.trim() != ''">
+            AND UPPER(PCODE) LIKE '%' || UPPER(#{pcode}) || '%'
+         </if>
+         <!-- pname 필드에 검색어가 있으면 -->
+          <if test="pname !=null and pname.trim() != ''">
+            AND UPPER(PNAME) LIKE '%' || UPPER(#{pname}) || '%'
+         </if>
+         <!-- int 값 조건식 -->
+          <if test="minPrice > 0">
+            AND PRICE &gt;= #{minPrice}
+          </if>
+            <if test="maxPrice > 0">
+            AND PRICE &lt;= #{maxPrice}
+          </if>
+      </where>
+      ORDER BY pcode
+   </select>
+
    <select id="selectByPk" parameterType="String" resultType="ProductDto">
       SELECT * FROM TBL_PRODUCT WHERE pcode = #{pcode}
    </select>
