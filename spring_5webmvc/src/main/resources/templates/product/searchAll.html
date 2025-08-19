@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Product Search</title>
+</head>
+
+<body>
+  <h1>상품 검색</h1>
+  <div class="search-form">
+    <form method="post" action="search">
+      <div class="search-row">
+        <div class="search-group">
+          <label for="searchCar">상품 코드</label>
+          <input type="text" id="searchCar" name=carBrand value="${pcode}" placeholder="상품코드">
+        </div>
+        <div class="search-group">
+          <label for="searchModel">상품명</label>
+          <input type="text" id="searchModel" name="model" value="${pname}" placeholder="상품명">
+        </div>
+      </div>
+
+      <div class="search-row">
+        <div class="search-group">
+          <label>가격 (PRICE)</label>
+          <div class="range-group">
+            <input type="number" name="minPrice" th:value="${minPrice}" placeholder="최소" min="0">
+            <span>~</span>
+            <input type="number" name="maxPrice" th:value="${maxPrice}" placeholder="최대" min="0">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <hr>
+  <h2>목록</h2>
+</body>
+
+</html>

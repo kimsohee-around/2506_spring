@@ -45,9 +45,11 @@ public class TestController_5ModelAttribute {
   }
 
   @PostMapping("/product/list")
-  public String prod_search(@ModelAttribute String keyword) {
-
+  public String prod_search(@ModelAttribute(name = "keyword") String keyword, Model model) {
+    log.info("ModelAttribute : {}", keyword);
+    model.addAttribute("list", productMapper.selectByKeyword(keyword));
     return "product/list";
   }
+  // @ModelAttribute : 파라미터 + 애트리뷰트 , Model : 애트리뷰트 저장
 
 }

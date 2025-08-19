@@ -15,6 +15,13 @@
   </ul>
   <h1>product/list</h1>
   <hr>
+  <div>
+    <h3>키워드 검색</h3>
+    <form action="list" method="POST">
+      <input type="text" name="keyword" placeholder="상품 검색어 입력하세요." th:value="${keyword}">
+      <button type="submit">검색</button>
+    </form>
+  </div>
   <table>
     <tr>
       <th>상품코드</th>
@@ -29,6 +36,8 @@
       <td th:text="${#numbers.formatCurrency(dto.price)}"></td>
     </tr>
   </table>
+  <hr>
+  <h2>모델 애트리뷰트 연습</h2>
   <div>
     사용자 요청 -- (입력:파라미터) -- 컨트롤러 -- (출력:애트리뷰트) -- View(타임리프 html) -- 사용자 응답
     👉 여기서 입력값 파라미터(keyword)가 컨트롤러에서 처리된 후에 다시 출력값 애트리뷰트(keyword)로 활용될 수 있습니다.
