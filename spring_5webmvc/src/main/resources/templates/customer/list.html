@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>customer</title>
+  <link rel="stylesheet" href="/css/table.css">
 </head>
 
 <body>
@@ -19,6 +20,7 @@
     ⭕ 서버사이드렌더링에 타임리프 문법을 사용합니다.
   </p>
   <h2>애트리뷰트 출력 연습</h2>
+  <p>/customer/list 에서만 전달 받는 애트리 뷰트 입니다. 보러 가기 <a href="list">여기 클릭!!</a></p>
   <ul>
     <li th:text="${page}">애트리뷰트 이름 page로 저장된 데이터(문자열) 출력</li>
     <div th:if="${dto != null}">
@@ -37,12 +39,17 @@
   </ul>
 
   <p>
+    /customer/cuslist 에서만 전달 받는 애트리 뷰트 입니다. 👉
     CustomerMapper(dao) 에서 테이블의 데이터를 모두 조회한 결과를
     보러 가기 <a href="cuslist">여기 클릭!!</a>
+    (⭕ 주의 : 경로에 하위폴더가 있을 때에는 / (루트) 사용을 주의하세요.)
   </p>
   <h3>customer</h3>
   <hr>
-  <table style="width: 900px;padding: 10px;" id="customer">
+  <div th:if="${custList==null}">
+    customer 테이블에서 가져온 애트리뷰는 값이 없습니다.
+  </div>
+  <table th:if="${cusList !=null}">
     <tr>
       <th>customerId</th>
       <th>name</th>
@@ -55,7 +62,7 @@
       <td th:text="${cusDto.name}"></td>
       <td th:text="${cusDto.age}"></td>
       <td th:text="${cusDto.email}"></td>
-      <!--   <td th:text="${custDto.regDate}"></td> -->
+      <td th:if="${cusDto.regDate != null}" th:text="${#dates.format(cusDto.regDate,'yyyy-MM-dd hh:mm')}"></td>
     </tr>
 
   </table>

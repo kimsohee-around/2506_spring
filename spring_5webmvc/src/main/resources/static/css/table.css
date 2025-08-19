@@ -1,0 +1,28 @@
+/* 테이블 스타일 */
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin: auto;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  color: #333;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #e8f4f8;
+}
