@@ -1,4 +1,4 @@
-package org.iclass.spring_3mybatis;
+package org.iclass.spring_5webmvc;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,8 +6,11 @@ import org.iclass.spring_3mybatis.dto.CustomerDto;
 import org.iclass.spring_3mybatis.mapper.CustomerMapper;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Transactional // 스프링부트에서 트랜잭션 관리를 하는 어노테이션. Test 할때에는 테스트 끝나면 rollback
 @SpringBootTest // 테스트 환경 설정
+@ComponentScan(basePackages = { "org.iclass" })
+@MapperScan(basePackages = { "org.iclass" })
 public class CustomerMapperTest {
   // 회원가입 insert, 회원정보 수정 update, 회원탈퇴 delete
   // 테스트할 bean 가져오기(필드 자동 주입)
@@ -33,10 +38,10 @@ public class CustomerMapperTest {
   }
 
   @Test
-  @Disabled
+  // @Disabled // 테스트를 비활성화
   void join() {
     int result = customerMapper.insert(
-        new CustomerDto("JJangu", "김장구", "jj@korea.kr", 25, null));
+        new CustomerDto("JJangu2", "김장구", "jj@korea.kr", 25, null));
 
     assertEquals(1, result);
   }

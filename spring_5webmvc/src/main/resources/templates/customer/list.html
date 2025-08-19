@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>customer</title>
+</head>
+
+<body>
+  <h1>customer/list</h1>
+  <hr>
+  <p>
+    애플리케이션의 기능에 따라 url 경로와 view 파일이 저장되는 폴더를 추가
+    할 수 있습니다. 여기서는 customer 를 경로에 추가하고 view 파일도
+    customer 폴더에 저장했습니다.
+  </p>
+  <p>/customer/list 는 Model 인터페이스를 이용해서 데이터(애트리뷰트)를
+    View customer폴더 list.html 에 전달하는 예시입니다.
+    ⭕ 서버사이드렌더링에 타임리프 문법을 사용합니다.
+  </p>
+  <h2>애트리뷰트 출력 연습</h2>
+  <ul>
+    <li th:text="${page}">애트리뷰트 이름 page로 저장된 데이터(문자열) 출력</li>
+    <div th:if="${dto != null}">
+      <li th:text="${dto.name}">애트리뷰트 이름 dto로 저장된 객체의 name 필드 출력</li>
+      <li th:text="${dto.address}">애트리뷰트 이름 dto로 저장된 객체의 address 필드 출력</li>
+    </div>
+    <li th:text="${list}">애트리뷰트 이름 list 로 저장된 list 객체</li>
+    <li>
+      <ul>
+        <!-- li 태그 출력이 반복됩니다. list 의 각 요소를 순서대로 str 저장하여 반복 -->
+        <li th:each="str : ${list}">
+          <span th:text="${str}"></span>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <p>
+    CustomerMapper(dao) 에서 테이블의 데이터를 모두 조회한 결과를
+    보러 가기 <a href="cuslist">여기 클릭!!</a>
+  </p>
+  <h3>customer</h3>
+  <hr>
+  <table style="width: 900px;padding: 10px;" id="customer">
+    <tr>
+      <th>customerId</th>
+      <th>name</th>
+      <th>age</th>
+      <th>email</th>
+      <th>가입날짜</th>
+    </tr>
+    <tr th:each="cusDto : ${cusList}">
+      <td th:text="${cusDto.customerId}"></td>
+      <td th:text="${cusDto.name}"></td>
+      <td th:text="${cusDto.age}"></td>
+      <td th:text="${cusDto.email}"></td>
+      <!--   <td th:text="${custDto.regDate}"></td> -->
+    </tr>
+
+  </table>
+
+</body>
+
+</html>
