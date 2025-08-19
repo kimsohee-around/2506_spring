@@ -4,6 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Product Search</title>
+  <link rel="stylesheet" href="/css/table.css">
+  <link rel="stylesheet" href="/css/searchForm.css">
 </head>
 
 <body>
@@ -12,12 +14,12 @@
     <form method="post" action="search">
       <div class="search-row">
         <div class="search-group">
-          <label for="searchCar">상품 코드</label>
-          <input type="text" id="searchCar" name=carBrand value="${pcode}" placeholder="상품코드">
+          <label for="searchCode">상품 코드</label>
+          <input type="text" id="searchCode" name=pcode value="${searchDto.pcode}" placeholder="상품코드">
         </div>
         <div class="search-group">
-          <label for="searchModel">상품명</label>
-          <input type="text" id="searchModel" name="model" value="${pname}" placeholder="상품명">
+          <label for="searchPname">상품명</label>
+          <input type="text" id="searchPname" name="pname" value="${searchDto.pname}" placeholder="상품명">
         </div>
       </div>
 
@@ -25,9 +27,9 @@
         <div class="search-group">
           <label>가격 (PRICE)</label>
           <div class="range-group">
-            <input type="number" name="minPrice" th:value="${minPrice}" placeholder="최소" min="0">
+            <input type="number" name="minPrice" th:value="${searchDto.minPrice}" placeholder="최소" min="0">
             <span>~</span>
-            <input type="number" name="maxPrice" th:value="${maxPrice}" placeholder="최대" min="0">
+            <input type="number" name="maxPrice" th:value="${searchDto.maxPrice}" placeholder="최대" min="0">
           </div>
         </div>
       </div>
@@ -35,6 +37,20 @@
   </div>
   <hr>
   <h2>목록</h2>
+  <table>
+    <tr>
+      <th>상품코드</th>
+      <th>카테고리</th>
+      <th>상품명</th>
+      <th>가격</th>
+    </tr>
+    <tr th:each="dto : ${list}">
+      <td th:text="${dto.pcode}"></td>
+      <td th:text="${dto.category}"></td>
+      <td th:text="${dto.pname}"></td>
+      <td th:text="${#numbers.formatCurrency(dto.price)}"></td>
+    </tr>
+  </table>
 </body>
 
 </html>
