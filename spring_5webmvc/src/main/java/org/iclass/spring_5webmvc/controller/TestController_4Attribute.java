@@ -20,14 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class TestController_4Attribute {
   // 생성자 자동 주입: 생성자에서 같은 타입의 bean 을 가져와 초기화
   private CustomerMapper customerMapper;
-  private ProductMapper productMapper;
-
-  // 연습
-  @GetMapping("/product/list")
-  public String prod_list() {
-
-    return "product/list";
-  }
 
   @GetMapping("/customer/list")
   public String list(Model model) {

@@ -46,10 +46,10 @@
   </p>
   <h3>customer</h3>
   <hr>
-  <div th:if="${custList==null}">
+  <div th:if="${cusList==null}">
     customer 테이블에서 가져온 애트리뷰는 값이 없습니다.
   </div>
-  <table th:if="${cusList !=null}">
+  <table th:if="${cusList !=null}"> <!-- 참고로 else 역할의 th:unless 사용 -->
     <tr>
       <th>customerId</th>
       <th>name</th>

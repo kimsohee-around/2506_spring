@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>product</title>
+  <link rel="stylesheet" href="/css/table.css">
+  <link rel="stylesheet" href="/css/nav.css">
+</head>
+
+<body>
+  <ul id="nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/customer/list">customers</a></li>
+  </ul>
+  <h1>product/list</h1>
+  <hr>
+  <table>
+    <tr>
+      <th>상품코드</th>
+      <th>카테고리</th>
+      <th>상품명</th>
+      <th>가격</th>
+    </tr>
+    <tr th:each="dto : ${list}">
+      <td th:text="${dto.pcode}"></td>
+      <td th:text="${dto.category}"></td>
+      <td th:text="${dto.pname}"></td>
+      <td th:text="${#numbers.formatCurrency(dto.price)}"></td>
+    </tr>
+  </table>
+  <div>
+    사용자 요청 -- (입력:파라미터) -- 컨트롤러 -- (출력:애트리뷰트) -- View(타임리프 html) -- 사용자 응답
+    👉 여기서 입력값 파라미터(keyword)가 컨트롤러에서 처리된 후에 다시 출력값 애트리뷰트(keyword)로 활용될 수 있습니다.
+    👉 이런 경우 @ModelAttribute 로 구현할 수 있습니다.
+    예제 보기 : <a href="search">클릭(1) !!</a> , <a href="search?keyword=라면&page=99">클릭(2) !!</a>
+  </div>
+
+</body>
+
+</html>

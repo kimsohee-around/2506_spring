@@ -11,6 +11,8 @@ public interface ProductMapper {
 
   List<ProductDto> selectByKeyword(String keyword);
 
+  List<ProductDto> selectAll();
+
   int insert(ProductDto dto);
 
   int update(ProductDto dot);
