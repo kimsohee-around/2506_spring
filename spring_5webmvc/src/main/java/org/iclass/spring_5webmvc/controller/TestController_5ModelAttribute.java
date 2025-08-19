@@ -18,8 +18,8 @@ public class TestController_5ModelAttribute {
   private ProductMapper productMapper;
 
   @GetMapping("/product/search")
-  public String search(@ModelAttribute String keyword,
-      @RequestParam(defaultValue = "1") @ModelAttribute(name = "page") int page) {
+  public String search(@ModelAttribute(name = "keyword") String keyword,
+      @ModelAttribute(name = "page", value = "1") int page) {
     log.info("파라미터 : {} , {}", keyword, page);
 
     return "product/search";
