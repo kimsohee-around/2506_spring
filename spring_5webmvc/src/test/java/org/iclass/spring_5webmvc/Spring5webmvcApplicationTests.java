@@ -3,6 +3,7 @@ package org.iclass.spring_5webmvc;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.iclass.spring_3mybatis.mapper.CustomerMapper;
+import org.iclass.spring_3mybatis.mapper.ProductMapper;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 class Spring5webmvcApplicationTests {
 
 	@Autowired
-	private CustomerMapper customerMapper;
+	private ProductMapper productMapper;
 
+	// searchAll 을 중점적으로 테스트
 	@Test
 	void contextLoads() {
-		assertNotNull(customerMapper);
+		assertNotNull(productMapper);
 	}
 
 }
