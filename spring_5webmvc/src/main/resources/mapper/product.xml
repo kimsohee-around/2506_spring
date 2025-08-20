@@ -9,7 +9,7 @@
       SELECT * FROM TBL_PRODUCT ORDER BY pcode
    </select>
 
-   <select id="searchAll" parameterType="SearchDto" resultType="ProductDto">
+   <select id="searchAll" parameterType="ProductSearchDto" resultType="ProductDto">
       SELECT * FROM TBL_PRODUCT 
       <!-- 조건식이 생기면 where 1=1 키워드 추가 됩니다. -->
       <where>  

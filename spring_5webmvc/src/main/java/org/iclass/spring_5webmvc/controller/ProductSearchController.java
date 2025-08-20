@@ -1,6 +1,6 @@
 package org.iclass.spring_5webmvc.controller;
 
-import org.iclass.spring_3mybatis.dto.SearchDto;
+import org.iclass.spring_3mybatis.dto.ProductSearchDto;
 import org.iclass.spring_3mybatis.mapper.ProductMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +25,7 @@ public class ProductSearchController {
 
   // 검색을 위한 Post 요청 처리
   @PostMapping("/product/searchAll")
-  public String search(@ModelAttribute SearchDto dto, Model model) {
+  public String search(@ModelAttribute(name = "searchDto") ProductSearchDto dto, Model model) {
     model.addAttribute("list", productMapper.searchAll(dto));
 
     return "product/searchAll";
