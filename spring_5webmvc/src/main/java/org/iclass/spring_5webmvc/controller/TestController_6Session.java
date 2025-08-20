@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,12 +15,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@SessionAttributes(names = { "username" }) // 세션 스콥의 Model 애트리뷰트 이름
 public class TestController_6Session {
 
   @GetMapping("sessionA")
   public String setSessionA(HttpServletRequest request, Model model) {
 
-    HttpSession session = request.getSession(); // 방법1) 현재 요청 객체로부터 세션 객체 생성하기
+    HttpSession session = request.getSession(); // 방법1) 현재 요청 객체로부터 세션 객체 생성하기(서블릿 방식)
     session.setAttribute("userid", "hongGD"); // 서버의 세션 저장소에 데이터 저장.
 
     return "redirect:getSessionAll";
@@ -30,7 +32,8 @@ public class TestController_6Session {
     model.addAttribute("username", "홍지디");
     // Model 객체에 데이터 저장
     // -> 지정된 View 로 전달(기존 사용 request scope)
-    // -> 방법 2) Model 객체를 session scope 으로 저장하려면
+    // -> 방법 2) Model 객체를 session scope 으로 저장하려면(스프링 방식). @SessionAttributes 어노테이션으로
+    // 설정.
     return "redirect:getSessionAll";
   }
 
@@ -44,24 +47,32 @@ public class TestController_6Session {
       @SessionAttribute(required = false) String userid,
       @SessionAttribute(required = false) String username) {
     log.info("✅ 어노테이션으로 2개의 값을 모두 가져오는지 확인하기!!");
+    // 결론 : 방법 1) 2) 모두 가져옵니다. 세션 애트리뷰트 이름은 기본값이 변수명입니다.
     log.info("session userid : {}", userid);
     log.info("session username : {}", username);
     return "session";
   }
 
-  @GetMapping("logoutA") // 방법 1
+  @GetMapping("logout") // 방법 1: JSESSIONID 값 초기화
   public String logout(HttpSession session) {
+    session.invalidate();
+    return "redirect:/getSessionAll";
+  }
+
+  @GetMapping("logoutA") // 방법 1 : JSESSIONID 값은 유지
+  public String logoutA(HttpSession session) { // HttpSession session 을 선언하여 사용도 가능
     // HttpSession session = request.getSession();
+    // 기존 애트리뷰트 삭제 : JSESSIONID 값은 유지
     session.removeAttribute("userid");
-    session.removeAttribute("username");
-    // session.invalidate(); // JSESSIONID 값 초기화
+    session.removeAttribute("username"); // 어노테이션으로 설정: 이 명령어로는 삭제 안됨.
+    log.info("logoutA ***");
     return "redirect:/getSessionAll";
   }
 
   @GetMapping("logoutB") // 방법 2
   public String logout(SessionStatus sessionStatus) {
     // model 애트리뷰트 중에서 session 스콥에 저장된 것들을 모두 삭제
-    log.info("***");
+    log.info("logoutB ***");
 
     sessionStatus.setComplete(); // JSESSIONID 값은 유지
 

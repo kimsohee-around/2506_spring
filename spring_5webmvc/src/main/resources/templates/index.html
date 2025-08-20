@@ -9,7 +9,14 @@
 </head>
 
 <body>
+
   <h1>INDEX</h1>
+  <hr>
+  <h2>세션 데이터 확인</h2>
+  <div>
+    userid - sessionA : <span th:text="${session.userid}"></span>, <span th:text="${userid}"></span><br>
+    username - sessionB : <span th:text="${session.username}"></span>, <span th:text="${username}"></span>
+  </div>
   <hr>
   <p>타임리프 라이브러리 추가하면 resources 아래 static, template 폴더 생성 됩니다
   <div class=""></div>
@@ -33,6 +40,7 @@
     <li><a href="/customer/list">/customer/list(애트리뷰트 테스트)</a></li>
     <li><a href="/product/list">/product/list(모델애트리뷰트 테스트)</a></li>
     <li><a href="/product/searchAll">/product/searchAll(동적쿼리)</a></li>
+    <li><a href="/getSessionAll">/getSessionAll(세션테스트)</a></li>
   </ul>
 
   <!-- 
