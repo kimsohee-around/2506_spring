@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>SESSION 에 저장한 값 확인</h1>
+  <hr>
+  <div><a href="/">INDEX</a></div>
+  <div>
+    userid - sessionA : <span th:text="${session.userid}"></span>, <span th:text="${userid}"></span>
+    username - sessionB : <span th:text="${session.username}"></span>, <span th:text="${username}"></span>
+  </div>
+  <hr>
+  <ul>
+    <li><a href="sessionA">ssessionA(리다이렉트)</a></li>
+    <li><a href="sessionB">ssessionB(리다이렉트)</a></li>
+    <li><a href="logoutA">logoutA(리다이렉트)</a></li>
+    <li><a href="logoutB">logoutB(리다이렉트)</a></li>
+    <li><a href="getSessionAll">getSessionAll(View)</a></li>
+    <li><a href="getSessionAnnotation">getSessionAnnotation(View)</a></li>
+  </ul>
+</body>
+
+</html>
