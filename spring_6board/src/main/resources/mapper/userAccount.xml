@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.iclass.board.mapper.UserAccountMapper">
+	<!-- UserAccount dto 클래스와 UserAccountMapper 인터페이스 만드세요. -->
+	<insert id="insert" parameterType="UserAccount">
+		INSERT INTO USER_ACCOUNT 
+			   (userid, username, password, birth, gender, email) 
+        VALUES
+               (#{userid}, #{username}, #{password}, #{birth}, #{gender}, #{email})
+	</insert>
+
+	<select id="selectForLogin" parameterType="java.util.Map" 
+								resultType="UserAccount">
+	<!-- 2개의 파라미터를 저장하기위해 Map 사용 : Map 에 저장되는 key 는 userid, password-->
+		SELECT * FROM 
+					USER_ACCOUNT
+				 WHERE userid=#{userid} and password=#{password}
+	</select>
+</mapper>   
+<!-- 
+https://github.com/sohi-kim/jsp_2jstl/blob/main/src/main/java/dao/UserAccountDao.java   
+위 링크의 Dao 를 마이바티스-스프링으로 변경하기 위해 mapper XML 을 작성하세요.
+-->

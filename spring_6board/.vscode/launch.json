@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-BoardApplication<spring_6board>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "org.iclass.board.BoardApplication",
+      "projectName": "spring_6board",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.iclass.board.mapper.CommunityCommentsMapper">
+	<!-- 0. 글 작성자 가져오기 -->
+	<select id="selectOneByIdx" parameterType="int" resultType="CommunityCommentDTO">
+		SELECT *  FROM 	communityComments WHERE idx = #{idx}
+	</select>
+	<!-- 1. 댓글 추가 -->
+	<insert id="insert" parameterType="CommunityCommentDTO">
+		INSERT INTO communityComments (idx,mref,writer,content)
+		VALUES (comment_idx_seq.nextval,#{mref},#{writer},#{content})
+	</insert>
+	<!-- 2. 댓글 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM communityComments c WHERE idx = #{idx}
+	</delete>
+	<!-- 3. 메인글의 댓글 목록 가져오기 -->
+	<select id="selectCommentList" parameterType="int" 
+			resultType="CommunityCommentDTO">
+		SELECT idx,mref,writer,content
+			,to_char(createdAt,'yyyy-MM-dd am hh:mi') regDate ,ip 
+		FROM communityComments c WHERE mref=#{mref}
+		ORDER BY idx DESC
+	</select>
+	<!-- 4. 메인글의 댓글 갯수 가져오기 -->
+	<select id="selectCommentCount" parameterType="int">
+		SELECT count(*) FROM communityComments c WHERE mref=#{mref}
+	</select>
+	<!-- 5. 메인글 테이블의 댓글 개수 업데이트 -->
+	<update id="updateCommentCount" parameterType="int">
+		UPDATE COMMUNITY 
+		SET COMMENTCOUNT = 
+		    (SELECT count(*) FROM communityComments c WHERE mref=#{mref})
+		WHERE idx=#{mref}
+	</update>
+		
+	
+</mapper>
