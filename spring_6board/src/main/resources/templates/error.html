@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>오류 발생</title>
+	<style>
+		body {
+			font-family: 'Segoe UI', sans-serif;
+			background-color: #f8f9fa;
+			color: #333;
+			padding: 40px;
+		}
+
+		.error-container {
+			max-width: 600px;
+			margin: auto;
+			background-color: #fff;
+			border: 1px solid #ddd;
+			border-radius: 8px;
+			padding: 30px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+		}
+
+		h1 {
+			color: #dc3545;
+			font-size: 24px;
+			margin-bottom: 20px;
+		}
+
+		p {
+			font-size: 16px;
+			margin: 8px 0;
+		}
+
+		.label {
+			font-weight: bold;
+			color: #555;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="error-container">
+		<h1>오류가 발생했습니다</h1>
+		<p><span class="label">상태 코드:</span> <span th:text="${status}">500</span></p>
+		<p><span class="label">오류 이름:</span> <span th:text="${error}">Internal Server Error</span></p>
+		<p><span class="label">예외 메시지:</span> <span th:text="${message}">예외 메시지</span></p>
+		<p><span class="label">요청 경로:</span> <span th:text="${path}">/example</span></p>
+	</div>
+</body>
+
+</html>
