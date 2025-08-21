@@ -61,7 +61,7 @@
 						</div>
 						<div class="my-4">
 							<div class="float-end">
-								<a href="list">
+								<a th:href="|@{list?page=}${page}|">
 									<button type="button" class="btn btn-info">목록</button>
 								</a>
 								<th:block th:if="${dto.writer == session.username}">

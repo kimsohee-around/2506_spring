@@ -26,8 +26,6 @@ public class CommunityController {
 	@GetMapping("/community/list")
 	public String list(@RequestParam(defaultValue = "1") int page, Model model) {
 
-		// List<CommunityDTO> list = service.getPageList(page);
-		// model.addAttribute("list", list);
 		PageResponseDTO pageList = service.getPageList(page);
 		model.addAttribute("pageList", pageList);
 		model.addAttribute("page", page); // 검색기능 구현하면 dto 로 작성
