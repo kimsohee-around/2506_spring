@@ -1,0 +1,32 @@
+1. 컨트롤러        -     서비스        -  매퍼(dao)
+  http요청/응답     추가코드(업무)    SQL실행  
+  
+2.  /join 은 미구현
+    error.html 소스 파일에 추가 설명 작성.
+
+3.  login.html 
+    const fail = '[[${fail}]]'        //자바스크립에서 타임리프 표기  
+    //타임리프 태그 표기 방식 <span th:text="${fail}">
+
+4. RedirecAttribute   메소드 : addAttribute 와 addFlashAttribute 
+          ㄴ 리다이렉트 할때 , 리다이렉트 URL-View 로 전달.
+          ㄴ 로그아웃, 로그인 실패 에 활용했습니다.
+
+5. 로그인 계정 정보  특히 패스워드는  POST 요청시에도 개발자도구에서 보입니다.
+   => 그래서 웹서버는 https 보안 프로토콜로 암호화 전송이 필요합니다. 
+
+6. HttpSession session 객체의 session.getId() 는 
+   서버가 발급한 세션 식별값 JSESSIONID 쿠키와 동일합니다.
+
+7.  (글수정) /community/modify?idx=값   (글 삭제) /community/remove?idx=값
+  => URL 에서 직접 입력하고 실행이 됩니다.(헐..............❌)
+  => 백엔드(컨트롤러)에서 검증이 필요합니다.
+
+8. 
+
+9.
+
+10.
+
+
+

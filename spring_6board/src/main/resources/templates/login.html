@@ -25,7 +25,7 @@
 				<span></span>
 				<label for="floatingPassword">패스워드</label>
 			</div>
-			<div id="fail"></div>
+			<div id="fail"></div> <!-- 로그인 오류 메시지 출력할 요소 -->
 			<div class="centerDiv">
 				<button type="button" class="btn btn-secondary" onclick="location.href='/'">홈</button>
 				<button class="btn btn-dark">로그인</button>
@@ -35,7 +35,7 @@
 		<hr />
 	</div>
 	<script type="text/javascript">
-		const fail = '[[${fail}]]'   // ????
+		const fail = '[[${fail}]]'   // 컨트롤러가 보내준 애트리뷰트
 		console.log(fail)
 		if (fail === 'y')
 			document.getElementById('fail').innerHTML

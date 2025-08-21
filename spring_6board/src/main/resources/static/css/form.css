@@ -1,36 +1,38 @@
 @charset "UTF-8";
+
 .regForm {
-    	max-width: 500px;
-    	margin:50px auto ;
-    }
-    
-.w90{
+	max-width: 500px;
+	margin: 50px auto;
+}
+
+.w90 {
 	width: 90px;
 }
 
 /* > 기호는 자식, + 기호는 형제 선택자 , 기호는 목록 나열 */
-div.input-group > input + span ,div.input-group > select + span , 
-div.form-floating > input + span , div#fail,
-div.mb-1 > input + label{
-	color:rgb(202, 202, 0);
+div.input-group>input+span,
+div.input-group>select+span,
+div.form-floating>input+span,
+div#fail,
+div.mb-1>input+label {
+	color: tomato;
 	font-size: 0.7rem;
 	padding-left: 15px;
+	font-weight: 700;
 }
-div.mb-1 > input {
+
+div.mb-1>input {
 	margin-bottom: 0px;
 }
 
 /* 로그인 폼 5_login.jsp */
-.centerDiv {    
+.centerDiv {
 	/* 블록요소에 포함된 내용을 중앙에 정렬*/
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.centerDiv > button {
-	margin : 20px 10px;
+.centerDiv>button {
+	margin: 20px 10px;
 }
-
-
-
