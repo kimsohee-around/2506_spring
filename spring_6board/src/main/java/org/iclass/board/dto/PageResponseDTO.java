@@ -19,6 +19,7 @@ public class PageResponseDTO {
 	private int totalCount;		//전체 글 개수
 	private int totalPages;
 	
+	// 요청 페이지 기준으로 페이지 목록의 시작,끝 번호
 	private int startPage;
 	private int endPage;
 	

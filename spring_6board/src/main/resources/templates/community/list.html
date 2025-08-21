@@ -88,7 +88,9 @@
                     </table>
                     <div class="d-flex justify-content-center">
                         <ul class="pagination flex-wrap">
-                            <li><a href="?page=1" class="btn">&lt;&lt;</a></li>
+                            <!-- 1페이지로 이동 -->
+                            <li><a href="list?page=1" class="btn">&lt;&lt;</a></li>
+                            <!-- 앞 단계 페이지 목록 이동 -->
                             <li><a class="btn" th:href="|@{list?page=}${pageList.startPage-1}|"
                                     th:style="${pageList.startPage==1 } ? 'display:none;' : ''">&lt;</a></li>
                             <li><span th:each="i : ${#numbers.sequence(pageList.startPage, pageList.endPage) }">
@@ -96,9 +98,11 @@
                                         [[${i}]]</a>
                                 </span>
                             </li>
+                            <!-- 다음 단계 페이지 목록 이동 -->
                             <li><a class="btn" th:href="|@{list?page=}${pageList.endPage+1}|"
                                     th:style="${pageList.endPage>=pageList.totalPages } ? 'display:none;' : '' ">&gt;</a>
                             </li>
+                            <!-- 마지막 페이지로 이동 -->
                             <li><a th:href="|@{list?page=}${pageList.totalPages}|" class="btn">&gt;&gt;</a></li>
                         </ul>
                     </div>
