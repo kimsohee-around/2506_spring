@@ -12,6 +12,8 @@ public interface CommunityMapper {
 
 	List<CommunityDTO> selectAll();
 
+	List<CommunityDTO> selectPageList(Map<String, Integer> map);
+
 	int insert(CommunityDTO dto);
 
 	CommunityDTO selectByIdx(long idx);

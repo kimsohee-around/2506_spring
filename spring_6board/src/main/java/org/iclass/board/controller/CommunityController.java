@@ -1,17 +1,19 @@
 package org.iclass.board.controller;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.iclass.board.dto.CommunityDTO;
+import org.iclass.board.dto.PageResponseDTO;
 import org.iclass.board.service.CommunityService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.PostMapping;<<<<<<<HEAD
+import org.springframework.web.bind.annotation.SessionAttribute;=======
+import org.springframework.web.bind.annotation.RequestParam;>>>>>>>4479d 49(게시판-글목록페이지)
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,11 +24,13 @@ public class CommunityController {
 	private CommunityService service;
 
 	@GetMapping("/community/list")
-	public String list(Model model) {
+	public String list(@RequestParam(defaultValue = "1") int page, Model model) {
 
-		List<CommunityDTO> list = service.selectAll();
-		model.addAttribute("list", list);
-
+		// List<CommunityDTO> list = service.getPageList(page);
+		// model.addAttribute("list", list);
+		PageResponseDTO pageList = service.getPageList(page);
+		model.addAttribute("pageList", pageList);
+		model.addAttribute("page", page); // 검색기능 구현하면 dto 로 작성
 		log.info("오늘 날짜 : {}", LocalDate.now());
 		model.addAttribute("today", LocalDate.now());
 		return "community/list"; // community 폴더안에 list.html
@@ -34,22 +38,28 @@ public class CommunityController {
 
 	// 글 읽기
 	@GetMapping("/community/read")
-	public String read(int idx, Model model) {
+	public String read(int idx, int page, Model model) {
 		// ㄴ list.html 화면에서 글제목 링크에 page 파라미터 받아오기
-		log.info("idx : {} ", idx);
+		log.info("idx : {} ,  page : {}", idx, page);
 		// sql : idx 값으로 하나의 행 조회, mapper, service
 		model.addAttribute("dto", service.read(idx, true));
+		model.addAttribute("page", page);
+		// ㄴ read.html 화면 목록/수정/삭제 버튼 링크에 page 파라미터 값으로 사용
 		return "community/read";
 	}
 
 	// 글 쓰기
 	@GetMapping("/community/write")
-	public String write() {
-
+	public String write(HttpSession session) throws IllegalAccessException {
+		String username = (String) session.getAttribute("username");
+		log.info("username : {}", username);
+		if (username == null) {
+			// 로그인 안했으면 예외 발생
+			throw new IllegalAccessException("잘못된 접근입니다.");
+		}
 		return "community/write";
 	}
 
-	// 글 저장
 	@PostMapping("/community/write")
 	public String write(CommunityDTO dto) {
 		log.info("form 입력값 : {}", dto);

@@ -11,12 +11,14 @@
 <body>
     <div class="container">
         <h1>Hello, world!</h1>
-
+        <h3>List :</h3>
+        <div>[[${requestDTO}]]</div>
+        <div> totalCount: [[${pageList.totalCount}]] , totalPages: [[${pageList.totalPages}]],
+            startPage: [[${pageList.startPage}]], endPage: [[${pageList.endPage}]]</div>
         <hr>
         <div class="row">
             <div class="col-auto">
-                <!-- <a th:href="@{write}" class="btn btn-primary">글쓰기</a> 
-                    또는 <a href="write" class="btn btn-primary">글쓰기</a> -->
+                <!--             <a th:href="@{write}" class="btn btn-primary">글쓰기</a> -->
                 <a th:href="|javascript:write()|" class="btn btn-primary">글쓰기</a>
                 <a href="/" class="btn btn-primary">HOME</a>
             </div>
@@ -29,7 +31,7 @@
                             location.href = '/login'    // confirm 실행시 확인 버튼 클릭하면 
                         }
                     } else {  // 세션 값이 있는 경우
-                        location.href = 'write'       // 상대 경로(글쓰기)
+                        location.href = 'write'       // 상대 경로
                     }
                 }
             </script>
@@ -54,14 +56,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="dto : ${list}">
+                            <tr th:each="dto : ${pageList.list}">
                                 <td>[[${dto.idx}]]</td>
                                 <td>
                                     <!--검색 기능 (예정) : 글읽기 페이지에서 목록 클릭했을 때
                                            검색이 풀리면 안됩니다. 검색 페이지가 유지시켜주기 위함
                             -->
                                     <a class="link-offset-2 link-underline link-underline-opacity-0"
-                                        th:href="|@{read?idx=}${dto.idx}|">[[${dto.title}]]</a>
+                                        th:href="|@{read?idx=}${dto.idx}&page=${page}|">[[${dto.title}]]</a>
                                     <span class="badge"
                                         style="background-color: #bebebf;color:#6f42c1;font-size:0.7rem;">
                                         [[${dto.commentCount}]]</span>
@@ -84,7 +86,22 @@
                             </tr>
                         </tbody>
                     </table>
-
+                    <div class="d-flex justify-content-center">
+                        <ul class="pagination flex-wrap">
+                            <li><a href="?page=1" class="btn">&lt;&lt;</a></li>
+                            <li><a class="btn" th:href="|@{list?page=}${pageList.startPage-1}|"
+                                    th:style="${pageList.startPage==1 } ? 'display:none;' : ''">&lt;</a></li>
+                            <li><span th:each="i : ${#numbers.sequence(pageList.startPage, pageList.endPage) }">
+                                    <a th:class="${page == i}? 'btn text-primary':'btn'" th:href="|@{list?page=}${i}|">
+                                        [[${i}]]</a>
+                                </span>
+                            </li>
+                            <li><a class="btn" th:href="|@{list?page=}${pageList.endPage+1}|"
+                                    th:style="${pageList.endPage>=pageList.totalPages } ? 'display:none;' : '' ">&gt;</a>
+                            </li>
+                            <li><a th:href="|@{list?page=}${pageList.totalPages}|" class="btn">&gt;&gt;</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
