@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.AllArgsConstructor;
@@ -17,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 @Slf4j
 @Controller
+@SessionAttributes(names = { "username" })
 public class CommunityController {
 	private CommunityService service;
 
@@ -57,15 +60,30 @@ public class CommunityController {
 
 	// 글 수정
 	@GetMapping("/community/modify")
-	public String modify(int idx, Model model) {
+	public String modify(int idx,
+			@SessionAttribute(name = "username") String username,
+			Model model) throws IllegalAccessException {
 		CommunityDTO dto = service.read(idx, false); // 글 수정은 조회수 카운트 안함
+		// 글번호 idx 의 작성자와 세션의 username 과 동일한지 비교
+		log.info("username : {}", username);
+		if (!dto.getWriter().equals(username)) {
+			throw new IllegalAccessException("잘못된 접근입니다.");
+		}
 		model.addAttribute("dto", dto);
 		return "community/modify"; // write.html 활용
 	}
 
 	// 수정할 내용 저장
 	@PostMapping("/community/modify")
-	public String modify(CommunityDTO dto, RedirectAttributes reAttr) {
+	public String modify(CommunityDTO dto,
+			@SessionAttribute String username,
+			RedirectAttributes reAttr) throws IllegalAccessException {
+		// 글번호 idx 의 작성자와 세션의 username 과 동일한지 비교
+		log.info("username : {}", username);
+		if (!service.read(dto.getIdx(), false).getWriter().equals(username)) {
+			throw new IllegalAccessException("잘못된 접근입니다.");
+		}
+
 		log.info("modify dto : {}", dto);
 		service.save(dto);
 		reAttr.addAttribute("idx", dto.getIdx());

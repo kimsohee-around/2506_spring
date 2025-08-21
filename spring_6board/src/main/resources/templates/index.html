@@ -13,8 +13,15 @@
 	<a href="/community/list">커뮤니티 게시판</a>
 	<nav>
 		<ul id="nav" th:if="${session.username !=null }">
-			<li><span th:text="${session.username }"></span> 님 환영합니다.</li>
-			<li><a href="logout">로그아웃</a></li>
+			<li><span th:text="${session.username }"></span> 님 환영합니다.
+				([[${session.sessionId}]])
+			</li>
+			<li>
+				<!-- <a href="logout">로그아웃</a> -->
+				<form action="logout" method="POST">
+					<button>로그아웃</button>
+				</form>
+			</li>
 		</ul>
 		<ul id="nav" th:if="${session.username ==null }">
 			<li><a href="login">로그인</a></li>
@@ -23,7 +30,7 @@
 	</nav>
 	<script type="text/javascript">
 		const message = '[[${message}]]'
-		if (message)
+		if (message)   // null 또는 빈문자열 아니면 참
 			alert(message)
 	</script>
 </body>

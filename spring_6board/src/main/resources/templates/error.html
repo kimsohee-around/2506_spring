@@ -43,6 +43,10 @@
 <body>
 	<div class="error-container">
 		<h1>오류가 발생했습니다</h1>
+		<p>error.html 을 작성하면 별도의 오류 처리 java 코드가 없어도 자동으로 예외 Exception 정보를
+			애트리뷰트에 저장하여 error.html로 전달합니다.
+		</p>
+		<p>Exception 타입(종류)에 따라 다른 처리를 하고 싶다면 ExceptionHandler 를 직접 작성합니다.</p>
 		<p><span class="label">상태 코드:</span> <span th:text="${status}">500</span></p>
 		<p><span class="label">오류 이름:</span> <span th:text="${error}">Internal Server Error</span></p>
 		<p><span class="label">예외 메시지:</span> <span th:text="${message}">예외 메시지</span></p>
