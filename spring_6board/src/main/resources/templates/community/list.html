@@ -15,8 +15,9 @@
         <hr>
         <div class="row">
             <div class="col-auto">
-                <a th:href="@{write}" class="btn btn-primary">글쓰기</a>
-                <!-- <a th:href="|javascript:write()|" class="btn btn-primary">글쓰기</a> -->
+                <!-- <a th:href="@{write}" class="btn btn-primary">글쓰기</a> 
+                    또는 <a href="write" class="btn btn-primary">글쓰기</a> -->
+                <a th:href="|javascript:write()|" class="btn btn-primary">글쓰기</a>
                 <a href="/" class="btn btn-primary">HOME</a>
             </div>
             <script type="text/javascript">
@@ -28,7 +29,7 @@
                             location.href = '/login'    // confirm 실행시 확인 버튼 클릭하면 
                         }
                     } else {  // 세션 값이 있는 경우
-                        location.href = 'write'       // 상대 경로
+                        location.href = 'write'       // 상대 경로(글쓰기)
                     }
                 }
             </script>
