@@ -16,13 +16,14 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class PageResponseDTO {
-	private int totalCount;		//전체 글 개수
-	private int totalPages;
-	
+	// private int currentPage; // 현재 페이지 추가할 수 있음.
+	private int totalCount; // 전체 글 개수
+	private int totalPages; // 전체 페이지 개수
+
 	// 요청 페이지 기준으로 페이지 목록의 시작,끝 번호
 	private int startPage;
 	private int endPage;
-	
-	private List<CommunityDTO> list;    // 요청 페이지의 글목록
+
+	private List<CommunityDTO> list; // 요청 페이지의 글목록
 
 }

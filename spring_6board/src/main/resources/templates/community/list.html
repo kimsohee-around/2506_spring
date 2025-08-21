@@ -57,7 +57,7 @@
                         </thead>
                         <tbody>
                             <tr th:each="dto : ${pageList.list}">
-                                <td>[[${dto.idx}]]</td>
+                                <td>[[${dto.r}]]</td>
                                 <td>
                                     <!--검색 기능 (예정) : 글읽기 페이지에서 목록 클릭했을 때
                                            검색이 풀리면 안됩니다. 검색 페이지가 유지시켜주기 위함
@@ -73,7 +73,9 @@
                                 <td>
                                     <!-- 작성날짜를 yyyy-MM-dd 문자열로 변환해서 저장. -->
                                     <th:block th:with="temp=${#dates.format(dto.createdAt,'yyyy-MM-dd')}">
-                                        <!-- 오늘 이전에 작성한 글은 날짜로 표시. 문자열 비교 -->
+                                        <!-- 오늘 이전에 작성한 글은 날짜로 표시. 문자열 비교 
+                                             today 는 컨트롤러가 전달한 애트리뷰트 
+                                        -->
                                         <span th:if="${#strings.equals(temp,today)}">
                                             [[${#dates.format(dto.createdAt,'HH:mm')}]]
                                         </span>
@@ -88,7 +90,9 @@
                     </table>
                     <div class="d-flex justify-content-center">
                         <ul class="pagination flex-wrap">
-                            <!-- 1페이지로 이동 -->
+                            <!-- 1페이지로 이동 : 현재 URL list 와 같으므로 생략할 수 있습니다.
+                            href="list?page=1"   를 href="?page=1"  로 합니다.
+                            -->
                             <li><a href="list?page=1" class="btn">&lt;&lt;</a></li>
                             <!-- 앞 단계 페이지 목록 이동 -->
                             <li><a class="btn" th:href="|@{list?page=}${pageList.startPage-1}|"
