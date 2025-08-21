@@ -48,6 +48,7 @@ public class CommunityController {
 		return "community/write";
 	}
 
+	// 글 저장
 	@PostMapping("/community/write")
 	public String write(CommunityDTO dto) {
 		log.info("form 입력값 : {}", dto);
@@ -60,7 +61,7 @@ public class CommunityController {
 	public String modify(int idx, Model model) {
 		CommunityDTO dto = service.read(idx, false); // 글 수정은 조회수 카운트 안함
 		model.addAttribute("dto", dto);
-		return "community/modify"; // write.html 활용
+		return "community/modify"; // write.html 동일한 css 활용
 	}
 
 	// 수정할 내용 저장
@@ -68,8 +69,9 @@ public class CommunityController {
 	public String modify(CommunityDTO dto, RedirectAttributes reAttr) {
 		log.info("modify dto : {}", dto);
 		service.save(dto);
-		reAttr.addAttribute("idx", dto.getIdx());
-
+		reAttr.addAttribute("idx", dto.getIdx()); // redirect 할때 애트리뷰트(파라미터) 저장
+		// 수정한 글 저장 상태 확인
+		// return "redirect:read?idx="+ dto.getIdx();
 		return "redirect:read";
 	}
 

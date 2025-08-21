@@ -1,0 +1,42 @@
+프로젝트 이름 : myboard
+groupid : org.iclass 또는 다른 이름
+의존성 추가 :  ???
+application.properties (mybatis 설정은 주석)
+-> 서버 시작 테스트 -> 오류 없으면 서버 중단하고 아래 순서로 코딩하세요.
+
+1단계 : 
+dto
+mapper xml
+mapper 인터페이스
+단위 테스트 : mapper 
+
+2단계 :  화면구성(url 과 view 연결)
+Controller 
+View  (타임리프 html 생성)
+
+3단계 : 핸들러 메소드 테스트 - 필요한 '서비스 클래스' 메소드 정의
+sql 과 연결되서 실행이 잘되는지 확인
+                      추천 순서 :   
+	(1)
+	페이지 기능없이 글 목록  ->  글 선택하고 읽기  -> 글 쓰기 (글 목록에 반영)
+
+            (2)
+            글 선택하고 읽기 -> 글 삭제 버튼 추가하여 실행
+                                  -> 글 수정 버튼 추가하여 실행 
+            
+
+	/community/list	  -> 글목록
+             /community/write    -> 글쓰기(화면 GET요청)
+             /community/write    -> 글쓰기(저장 POST요청)
+	/community/read    -> 글읽기
+             /community/modify   -> 글수정(화면 GET요청)
+             /community/modify   -> 글수정(저장 POST요청)
+	/community/remove    -> 글삭제
+
+
+
+
+
+
+
+
