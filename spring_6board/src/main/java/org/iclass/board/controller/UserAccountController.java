@@ -18,12 +18,13 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 @Controller
-@SessionAttributes({ "referer" }) // 로그인 후 돌아갈 페이지 세션 저장
+@SessionAttributes(names = { "referer" }) // 로그인 후 돌아갈 페이지 세션 저장
 public class UserAccountController {
 	private final UserAccountService service;
 
 	@GetMapping("login")
 	public String login(HttpServletRequest request, Model model) { // 로그인 화면 GET 요청
+		// ↓ login 페이지 진입할 때, 이 링크를 클릭한 주소를 가져오기
 		String referer = request.getHeader("Referer");
 		if (referer != null) { // Referer 이름의 헤더 값이 있으면 애트리뷰트 저장
 			model.addAttribute("referer", referer);
@@ -45,7 +46,7 @@ public class UserAccountController {
 			session.setAttribute("username", account.getUserid());
 			session.setAttribute("sessionId", session.getId());
 			// 비동기 요청에 사용할 수 있음. session 식별을 위한 JSESSIONID 값
-			if (referer.contains("/login"))
+			if (referer.contains("/login")) // 다시 로그인 페이지로 가는 경우를 방지
 				referer = "/";
 			return "redirect:" + referer; // 저장되 세션 애트리뷰트 referer 로 리다이렉트
 		} else { // 로그인 실패
