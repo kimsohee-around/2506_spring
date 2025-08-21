@@ -8,9 +8,9 @@ import org.iclass.board.service.CommunityService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;<<<<<<<HEAD
-import org.springframework.web.bind.annotation.SessionAttribute;=======
-import org.springframework.web.bind.annotation.RequestParam;>>>>>>>4479d 49(게시판-글목록페이지)
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
