@@ -96,9 +96,9 @@
 					<div class="row">
 						<input type="hidden" id="writer" th:value="${session.username}">
 						<input type="hidden" id="mref" th:value="${dto.idx}">
-						<div id="content-error" style="color: red; font-size: 0.85em;"></div>
+						<!-- 에러 표시하기 -->
+						<div id="content-error" class="text-danger small errorMsg"></div>
 						<div class="input-group mb-3">
-							<!-- 에러 표시하기 -->
 							<!-- input : single line , textarea : multi line -->
 							<textarea class="form-control" rows="5" id="content"></textarea>
 							<!-- 로그인 상태 ⭕: 저장 버튼 -->

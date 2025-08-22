@@ -149,8 +149,9 @@ async function commentPost() {
 
     const data = await response.json();   // 정상 실행인 경우
     if (data.success === 1) {
+      document.querySelectorAll('.errorMsg').forEach(ele => ele.innerHTML = '')   // 에러 메시지 지우기
+      document.getElementById('content').value = ''
       alert('댓글이 등록 되었습니다.');
-      document.getElementById('content').value = '';
       getCommentsList();
     }
   } catch (err) {
