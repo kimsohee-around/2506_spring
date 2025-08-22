@@ -26,8 +26,7 @@ public class CommentsService {
 
   // 댓글 삭제(pk idx) + 댓글 갯수 업데이트(mref)
   @Transactional
-  public int commentDelete(int idx) { // 삭제할 댓글의 pk
-    int mref = commentsMapper.selectOneByIdx(idx).getMref(); // todo: 파라미터 전달 받도록 수정
+  public int commentDelete(int idx, int mref) { // 삭제할 댓글의 pk
     int result = commentsMapper.delete(idx);
     commentsMapper.updateCommentCount(mref);
     return result;

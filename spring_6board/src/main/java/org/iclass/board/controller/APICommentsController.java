@@ -37,9 +37,9 @@ public class APICommentsController {
     return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("success", result));
   }
 
-  @DeleteMapping("/api/comments/{idx}")
-  public ResponseEntity<?> commentDelete(@PathVariable int idx) {
-    int result = commentsService.commentDelete(idx);
+  @DeleteMapping("/api/comments/{idx}/{mref}")
+  public ResponseEntity<?> commentDelete(@PathVariable int idx, @PathVariable int mref) {
+    int result = commentsService.commentDelete(idx, mref);
     // idx 를 없는 값을 처리한다면 result 는 0. 없는 댓글 삭제
 
     if (result == 1)
