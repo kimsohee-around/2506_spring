@@ -3,7 +3,7 @@
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.iclass.board.mapper.CommunityCommentsMapper">
-	<!-- 0. 글 작성자 가져오기 -->
+	<!-- 0. 글 내용 가져오기  : 사용 ❌ -->
 	<select id="selectOneByIdx" parameterType="int" resultType="CommunityCommentDTO">
 		SELECT *  FROM 	communityComments WHERE idx = #{idx}
 	</select>

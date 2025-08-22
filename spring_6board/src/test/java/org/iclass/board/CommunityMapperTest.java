@@ -46,7 +46,7 @@ class CommunityMapperTest {
 	void delete() {
 		int result = mapper.delete(2);
 		assertEquals(1, result);
-		CommunityDTO dto = mapper.selectByIdx(1);
+		CommunityDTO dto = mapper.selectByIdx(2);
 		assertNull(dto);
 	}
 

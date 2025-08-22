@@ -16,7 +16,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommunityDTO {
-	private long r;
+	private long r; // r은 rownum 시스템 컬럼 값
 	private long idx;
 	private String writer;
 	private String title;
