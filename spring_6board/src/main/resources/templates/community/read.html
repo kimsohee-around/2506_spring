@@ -129,10 +129,15 @@
 			</div>
 		</div>
 	</div>
+	<div>............</div>
+	<div>............</div>
+	<div>............</div>
+	<div>............</div>
 	<script>
 		// comments.js 는 프론트엔드 정적 리소스 이므로 백엔드 세션값을 직접 가져갈 수 없습니다.
 		// 백엔드 타임리프 html 의 script 태그는 가능합니다. comments.js 가 사용할 수 있게 변수 값 할당.
-		const username = '[[${session.username}]]'         
+		const username = '[[${session.username}]]'
+		const mref = '[[${dto.idx}]]'         // 모든 댓글의 mref
 	</script>
 	<script src="/js/comments.js"></script>
 </body>
