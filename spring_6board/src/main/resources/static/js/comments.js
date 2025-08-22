@@ -94,10 +94,39 @@ function commentDelete(idx) {
       if (data.success === 1)
         alert('댓글 삭제했습니다.')
     })
+    .then((() => getCommentsList()))    //변경된 댓글 목록 요청
     .catch(err => console.error(err))
 }
 
-
+// 댓글 추가
+/*
+{
+   "mref" : 298,
+   "writer" : "wonder",
+   "content" : "좋은 글이네요.👍"
+}
+*/
 function commentSave() {
+  const url = `/api/comments`
+  const newReply = {   // 새로 작성한 댓글
+    mref: mref,
+    writer: username,
+    content: document.getElementById('content').value
+  }
+  const options = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+    body: JSON.stringify(newReply)
+  }   // newReply 자바스트립트 오브젝트를 body 에는 json 문자열로 변환하여 보내기
 
+  fetch(url, options)
+    .then(response => response.json())
+    .then(data => {
+      if (data.success === 1) {
+        alert('댓글이 등록 되었습니다.')
+        document.getElementById('content').value = ''
+      }
+    })
+    .then(() => getCommentsList())  //변경된 댓글 목록 요청
+    .catch(err => console.error(err))
 }
