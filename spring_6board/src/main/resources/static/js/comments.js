@@ -1,16 +1,3 @@
-/*
-<li class="list-group-item d-flex">
-      <span class="col-5 myfc-1">${dto.writer}</span>
-      <span class="col-6">${dto.createdAt}</span>
-      <span class="col-1">
-        <!-- 삭제 아이콘 -->
-        <i class="bi bi-trash" data-num="${dto.idx}"></i>
-      </span>
-    </li>
-    <li class="list-group-item d-flex">
-      <textarea class="form-control myfs-9" disabled>${dto.content}</textarea>
-</li>
-*/
 console.log(username, mref)
 // 전역변수
 const reply = document.getElementById('replyList')     // 댓글 li 태그의 부모 ul 태그
@@ -18,7 +5,7 @@ getCommentsList()    // 함수 실행
 
 if (username) {
   // 저장 버튼
-  document.getElementById('btnSave').addEventListener('click', commentSave)   // commentSave 함수 실행
+  document.getElementById('btnSave').addEventListener('click', commentPost)   // commentSave 함수 실행
 } else {
   // 로그인 버튼
   document.getElementById('btnLogin').addEventListener('click', function () {
@@ -129,4 +116,45 @@ function commentSave() {
     })
     .then(() => getCommentsList())  //변경된 댓글 목록 요청
     .catch(err => console.error(err))
+}
+
+// fetch 의 다른 형식 함수 - commentSave 와 같이 하면 중첩구조가 생깁니다.
+async function commentPost() {
+  const url = `/api/comments`
+  const newReply = {   // 새로 작성한 댓글
+    mref: mref,
+    writer: username,
+    content: document.getElementById('content').value
+  }
+  const options = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+    body: JSON.stringify(newReply)
+  }
+  try {
+    const response = await fetch(url, options);   // 비동기 함수 처리 await
+
+    if (response.status === 400) {
+      const errorMap = await response.json();
+      for (const [field, message] of Object.entries(errorMap)) {
+        const errorMsg = document.getElementById(`${field}-error`);
+        if (errorMsg) errorMsg.innerHTML = message;
+      }
+      return;
+    }
+
+    if (!response.ok) {
+      throw new Error(`서버 오류: ${response.status}`);
+    }
+
+    const data = await response.json();   // 정상 실행인 경우
+    if (data.success === 1) {
+      alert('댓글이 등록 되었습니다.');
+      document.getElementById('content').value = '';
+      getCommentsList();
+    }
+  } catch (err) {
+    console.error(err);
+    alert("댓글 등록 중 오류가 발생했습니다.");
+  }
 }
