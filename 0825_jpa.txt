@@ -1,0 +1,8 @@
+1. application.yml  프로티값 설정
+spring: 
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        '[format_sql]': true

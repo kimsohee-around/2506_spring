@@ -36,6 +36,16 @@ public class OptionalJavaApplication {
     System.out.println("nullable.orElseGet(()-> \"리턴값\")");
     System.out.println(result);
 
-    result = nullable.orElseThrow(); // 값이 없으면 예외 발생
+    // result = nullable.orElseThrow(); // 값이 없으면 예외 발생
+
+    // 4) if(noneEmpty.isPresent()) noneEmpty.get().length() 에 해당하는 실행을
+    // ifPresent()메소드 사용
+    final int[] length = new int[1];
+    final int test; // 사용 못함.
+    noneEmpty.ifPresent(s -> {
+      length[1] = s.length(); // 여기서는 final 변수만 사용 가능. 일반 final int 는 ❌, 배열사용
+      // test = s.length(); //사용 못함
+      System.out.println(s.length());
+    }); // 값이 존재할 때만 실행하는 Consumer 함수 인터페이스가 인자
   }
 }
