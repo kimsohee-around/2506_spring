@@ -20,6 +20,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @ToString
 @Table(name = "todo_test") // 따로 설정하지 않으면 테이블명은 TODOENTITY 입니다.

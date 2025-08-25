@@ -26,9 +26,11 @@ extends JpaRepository<T, ID>   인터페이스를 상속 받는다.
 
 ------  상속 받은 메소드 (따로 정의하지 않고 사용함)  -----
 save(entity)	엔티티(테이블 행) 저장 또는 수정 (INSERT/UPDATE)
+saveAll(컬렉션)       여러 개의 엔티티 저장 또는 수정
 findById(id)	ID로 단일 엔티티 조회
 findAll()		모든 엔티티 조회
 deleteById(id)	ID로 엔티티 삭제
+deleteAll()		전체 엔티티 삭제
 existsById(id)	해당 ID의 엔티티 존재 여부 확인
 count()		전체 엔티티 개수 반환
 findAll(Sort sort)	정렬 조건에 따라 전체 조회
