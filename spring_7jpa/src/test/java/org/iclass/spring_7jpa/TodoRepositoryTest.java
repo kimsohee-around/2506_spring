@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 import org.iclass.spring_7jpa.entity.TodoEntity;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,6 +29,16 @@ public class TodoRepositoryTest {
   private TodoRepository todoRepository;
 
   @Test
+  void selectOne() {
+    // PK 로 조회하는 findById 는 리턴 타입은 Optional 입니다.
+    Optional<TodoEntity> entity = todoRepository.findById(10L); // Long 타입은 10L 과 같이 표기
+    if (entity.isPresent()) {
+      log.info("id 조회 = 10 : {}", entity.get());
+    }
+    assertNotNull(entity);
+  }
+
+  @Test
   void selectAll() {
     List<TodoEntity> list = todoRepository.findAll();
     assertEquals(list.size(), todoRepository.count());
@@ -34,10 +46,15 @@ public class TodoRepositoryTest {
 
   @Test
   void selectPaging() {
-    Pageable pageable = PageRequest.of(0, 5);
+    Pageable pageable = PageRequest.of(2, 5,
+        Sort.by("title").ascending());
 
     Page<TodoEntity> list = todoRepository.findAll(pageable);
     log.info("페이지 0 : {}", list);
+    log.info("페이지 정보 : {},{},{}",
+        list.getTotalPages(), // 전체 페이지수
+        list.getContent(), // 요청 페이지의 글목록
+        list.getNumber()); // 요청 페이지 번호
     assertEquals(5, list.getSize());
   }
 

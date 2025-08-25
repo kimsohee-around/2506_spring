@@ -36,6 +36,12 @@ count()		전체 엔티티 개수 반환
 findAll(Sort sort)	정렬 조건에 따라 전체 조회
 findAll(Pageable p)	페이징 처리된 전체 조회
 
+------------------------------------------
+커스텀 메소드 정의 : 메소드 이름을 해석해서 쿼리를 자동 생성합니다.
+List<T> findByName(String name); // name으로 조회
+List<T> findByAgeGreaterThan(int age); // age가 특정 값보다 큰 사용자 조회
+
+
 
 
 
