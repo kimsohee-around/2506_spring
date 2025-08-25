@@ -1,3 +1,5 @@
+package org.iclass.spring_7jpa;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDateTime;

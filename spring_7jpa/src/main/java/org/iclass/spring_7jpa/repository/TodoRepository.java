@@ -16,7 +16,7 @@ public interface TodoRepository extends JpaRepository<TodoEntity, Long> {
   // 커스텀 메소드 정의 : 메소드 이름에 포함된 필드(컬럼) 이름은 정확히!!
   List<TodoEntity> findByUsername(String username); // where username = ?
 
-  Page<TodoEntity> findByUsername(Pageable pageable);
+  Page<TodoEntity> findByUsername(String username, Pageable pageable);
 
   List<TodoEntity> findByUsernameOrderByCreatedAtDesc(String username);
 
