@@ -1,4 +1,4 @@
-package org.iclass.spring_7jpa.enums;
+package org.iclass.spring_7jpa.java_advanced;
 
 import org.springframework.http.HttpStatus;
 

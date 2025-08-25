@@ -1,4 +1,4 @@
-package org.iclass.spring_7jpa.enums;
+package org.iclass.spring_7jpa.java_advanced;
 
 public enum Day2 {
   // 상수 이름에 추가적으로 정수, 문자열 값을 각각 사용할 수 있습니다.

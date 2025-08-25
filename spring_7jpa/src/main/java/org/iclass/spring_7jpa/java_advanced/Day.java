@@ -1,4 +1,4 @@
-package org.iclass.spring_7jpa.enums;
+package org.iclass.spring_7jpa.java_advanced;
 
 public enum Day {
   MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
