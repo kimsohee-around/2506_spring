@@ -1,0 +1,67 @@
+ 
+Optional<T>: 0개 또는 1개의 T 타입 값을 담는 컨테이너 객체. 최대 1개 저장
+Optional 은 값이 있을 수도 있고 없을 수도 있음을 표현하는 단어
+즉, null 대신 안전하게 "없음"을 다룰 수 있도록 지원되는 타입 
+
+-------- Optional의 개념 -------- 
+null 참조를 직접 쓰지 않고, 값이 없을 수도 있음을 명시적으로 표현.
+NullPointerException 을 방지하고, 더 선언적인 코드를 작성할 수 있음.
+ㄴ 선언적인 코드(declarative code)는 “어떻게”가 아니라 “무엇”을 할지를 기술하는 방식의 코드
+
+
+1. 주요 메서드
+
+Optional.of(value) → null이 아닌 값을 담은 Optional 생성
+Optional.ofNullable(value) → 값이 null일 수도 있는 Optional 생성
+Optional.empty() → 비어있는 Optional 생성
+👉 활용 예시 : JPA 메소드의 리턴타입 Optional 을 사용합니다.
+
+isPresent() / isEmpty() → 값 존재 여부 확인
+get() → 값 가져오기 (비어있으면 예외 발생)
+
+orElse(defaultValue) → 값이 없을 때 기본값 제공
+orElseGet(Supplier) → 값이 없을 때 함수 실행 결과 반환
+orElseThrow() → 값이 없으면 예외 던짐
+map() → 값이 있으면 변환
+flatMap() → 중첩 Optional 변환
+
+2.  예시 코드
+import java.util.Optional;
+
+public class OptionalExample {
+    public static void main(String[] args) {
+        // 1. Optional 생성
+        Optional<String> nonEmpty = Optional.of("Hello");
+        Optional<String> nullable = Optional.ofNullable(null);
+        Optional<String> empty = Optional.empty();
+
+        // 2. 값 확인
+        System.out.println(nonEmpty.isPresent()); // true
+        System.out.println(nullable.isEmpty());   // true
+
+        // 3. 값 꺼내기
+        System.out.println(nonEmpty.get());       // Hello
+        // System.out.println(empty.get());       // 예외 발생 (NoSuchElementException)
+
+        // 4. 안전한 접근
+        String value1 = nullable.orElse("Default");
+        System.out.println(value1);               // Default
+
+        String value2 = nullable.orElseGet(() -> "Generated");
+        System.out.println(value2);               // Generated
+
+        // 5. 값이 없으면 예외 던지기
+        try {
+            String value3 = empty.orElseThrow(() -> new IllegalArgumentException("값 없음!"));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());   // 값 없음!
+        }
+
+        // 6. map / flatMap
+        Optional<String> upper = nonEmpty.map(String::toUpperCase);
+        System.out.println(upper.get());          // HELLO
+
+        Optional<Integer> length = nonEmpty.map(String::length);
+        System.out.println(length.get());         // 5
+    }
+}
