@@ -1,0 +1,141 @@
+------------------------------------
+Stream API (자바 8부터 추가된 기능)
+------------------------------------
+컬렉션 데이터를 함수형 스타일로 처리할 수 있게 해주는 강력한 도구입니다. 
+반복문보다 더 간결하고 선언적인 방식으로 데이터를 필터링, 변환, 집계
+
++ 데이터 흐름 추상화 
+Stream은 데이터의 흐름을 추상화하여, "어떻게"가 아닌 "무엇을" 처리할지를 중심으로 코드를 작성합니다.
+
++ 함수형 프로그래밍 지원 
+filter, map, reduce 같은 함수형 연산을 통해 데이터를 처리하며, 람다 표현식과 함께 사용됩니다.
+
++ 지연 처리 (Lazy Evaluation) 
+중간 연산은 실제로 실행되지 않고, 최종 연산이 호출될 때 실행됩니다. 이로 인해 성능이 최적화됩니다.
+
++불변성 유지 
+Stream은 원본 데이터를 변경하지 않고, 새로운 결과를 생성합니다.
+
++ 병렬 처리 지원 
+parallelStream()을 사용하면 멀티코어 환경에서 데이터를 병렬로 처리할 수 있습니다.
+
++ 예시
+1) Stream 생성: list.stream() 또는 list.parallelStream()
+2) 중간 연산(Intermediate): 데이터를 변환하거나 필터링 (map, filter, sorted 등)
+3) 최종 연산(Terminal): 결과를 도출 (collect, forEach, reduce, count 등)
+4) 지연 연산(Lazy Evaluation): 최종 연산이 실행되기 전까지 중간 연산은 실제로 수행되지 않음
+
+--------------   참고 --------------
+:: 연산자는 메서드 참조(Method Reference) 문법
+Stream API에서 같이 쓰이며 람다 표현식을 더 간결하게 표현할 때 사용합니다.
+
+형식 ↓
+클래스명::메서드명 또는 객체명::메서드명 형태
+람다식을 줄여 쓰는 방법
+              numbers.forEach(n -> System.out.println(n));
+              👉 메서드 참조로 바꾸면  numbers.forEach(System.out::println);
+-------------------------------------
+5) 예시 
+//------- 1: 필터링 (짝수만 출력)  ------- 
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamExample {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+
+        numbers.stream()
+               .filter(n -> n % 2 == 0) // 짝수만 필터링
+               .forEach(System.out::println);
+    }
+}
+
+//-------  2: 변환 (대문자로 변환)  ------- 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class StreamMapExample {
+    public static void main(String[] args) {
+        List<String> words = Arrays.asList("apple", "banana", "cherry");
+
+        List<String> upperWords = words.stream()
+                                       .map(String::toUpperCase) // 대문자 변환
+                                       .collect(Collectors.toList());
+
+        System.out.println(upperWords);
+    }
+}
+
+//-------  3: 집계 (합계 구하기)  ------- 
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamReduceExample {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        int sum = numbers.stream()
+                         .reduce(0, Integer::sum); // 0부터 시작해서 합산
+
+        System.out.println("합계: " + sum);
+    }
+}
+
+//-------  4: 정렬 ------- 
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamSortExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Kim", "Lee", "Park", "Choi");
+
+        names.stream()
+             .sorted()
+             .forEach(System.out::println);
+    }
+}
+-------   결론 -------
+stream()을 쓰면 List의 데이터를 선언적이고 간결한 방식으로 처리 가능
+루프(for) 대신 map, filter, reduce, collect 같은 메서드를 조합해 사용
+
+
+
+// 정적 메서드 참조
+
+Function<String, Integer> func = Integer::parseInt;   (👉 s -> Integer.parseInt(s) 와 동일)
+System.out.println(func.apply("123")); // 출력: 123
+
+// 특정 객체의 인스턴스 메서드 참조
+
+List<String> words = Arrays.asList("a", "bb", "ccc");
+words.forEach(System.out::println); // System.out 이라는 객체의 println 메서드 참조
+
+List<String> names = Arrays.asList("Kim", "Lee", "Park");
+names.stream()
+     .map(String::toUpperCase) // 각 문자열의 toUpperCase() 호출
+     .forEach(System.out::println);
+
+
+// 생성자 참조
+
+Supplier<List<String>> listSupplier = ArrayList::new;
+List<String> list = listSupplier.get();
+list.add("Hello");
+System.out.println(list); // [Hello]
+
+// 예시
+import java.util.Arrays;
+import java.util.List;
+
+public class MethodReferenceExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Kim", "Lee", "Park");
+
+        // 람다식
+        names.stream().map(s -> s.toUpperCase()).forEach(s -> System.out.println(s));
+
+        // 메서드 참조 (:: 사용)
+        names.stream().map(String::toUpperCase).forEach(System.out::println);
+    }
+}

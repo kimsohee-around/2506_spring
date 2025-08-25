@@ -1,11 +1,13 @@
 package org.iclass.spring_7jpa.enums;
 
+import org.springframework.http.HttpStatus;
+
 public class EnumJavaApplication {
 
   public static void main(String[] args) {
     System.out.println("enum 테스트");
     Day today = Day.MONDAY;
-    System.out.println("today : " + today); // MONDAY
+    System.out.println("today : " + today); // MONDAY 출력 => 열거형의 재정의된 today.toString() 실행
     System.out.println("Day values : " + Day.values()); // 우리가 정의한 상수를 모두 리스트로 반환
     System.out.println("---- 모든 Day 출력하기 ----");
     for (Day d : Day.values()) {
@@ -19,6 +21,9 @@ public class EnumJavaApplication {
 
     System.out.println("값 4 의 요일은 ? " + Day2.fromNumber(4));
     System.out.println("값 8 의 요일은 ? " + Day2.fromNumber(8));
+
+    System.out.println("\n자바의 열거형 예시");
+    System.out.println(HttpStatus.CREATED); // Rest APi 응답 코드 전달했던 상수
   }
 }
 /*
