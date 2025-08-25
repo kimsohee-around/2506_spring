@@ -1,4 +1,4 @@
-1. application.yml  프로티값 설정
+1. application.yml  프로티값 설정 ( 들여쓰기 잘 맞추는것이 yaml 문법에서 중요합니다.) 
 spring: 
   jpa:
     hibernate:
@@ -6,9 +6,12 @@ spring:
     properties:
       hibernate:
         '[format_sql]': true
+logging:
+  level:
+    '[org.hibernate.SQL]': debug       # sql 로그 확인
 
 2. controller ----- service ----- repository 인터페이스(dao)  
-            <- dto ->    <- entity->   
+              └ dto ┘   └ entity ┘   
 
 dto : 요청과 응답에 필요한 구성으로 만듭니다.
 
@@ -16,5 +19,21 @@ dto : 요청과 응답에 필요한 구성으로 만듭니다.
 영속성 역할을 하는 데이터베이스 테이블과 직접 매핑되는 클래스
 => 엔티티를 바탕으로 테이블 생성
 
-4. Repository 인터페이스
+4. Repository 인터페이스 정의 : 스프링이 JPA 구현체를 생성하고 bean 등록
+
+extends JpaRepository<T, ID>   인터페이스를 상속 받는다.
+                                ㄴ T는 테이블과 매핑되는 엔티티, ID는 PK 타입
+
+------  상속 받은 메소드 (따로 정의하지 않고 사용함)  -----
+save(entity)	엔티티(테이블 행) 저장 또는 수정 (INSERT/UPDATE)
+findById(id)	ID로 단일 엔티티 조회
+findAll()		모든 엔티티 조회
+deleteById(id)	ID로 엔티티 삭제
+existsById(id)	해당 ID의 엔티티 존재 여부 확인
+count()		전체 엔티티 개수 반환
+findAll(Sort sort)	정렬 조건에 따라 전체 조회
+findAll(Pageable p)	페이징 처리된 전체 조회
+
+
+
 
