@@ -1,4 +1,4 @@
-package org.iclass.spring_7jpa.java_advanced;
+package org.iclass.spring_7jpa.advanced_java;
 
 import java.util.Comparator;
 import java.util.List;

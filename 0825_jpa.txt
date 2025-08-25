@@ -6,3 +6,9 @@ spring:
     properties:
       hibernate:
         '[format_sql]': true
+
+2. controller ----- service ----- repository 인터페이스(dao)  
+            <- dto ->    <- entity->   
+
+3. Entity
+
