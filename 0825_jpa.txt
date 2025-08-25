@@ -10,5 +10,11 @@ spring:
 2. controller ----- service ----- repository 인터페이스(dao)  
             <- dto ->    <- entity->   
 
+dto : 요청과 응답에 필요한 구성으로 만듭니다.
+
 3. Entity
+영속성 역할을 하는 데이터베이스 테이블과 직접 매핑되는 클래스
+=> 엔티티를 바탕으로 테이블 생성
+
+4. Repository 인터페이스
 
