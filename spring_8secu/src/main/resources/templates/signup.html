@@ -20,16 +20,16 @@
             <input class="form-control form-control-sm" id="name" name="name">
           </div>
           <div class="input-group input-group-sm mb-3">
-            <label class="input-group-text col-2" for="email">이메일(아이디)</label>
-            <input class="form-control form-control-sm" id="email" name="email" type="email">
+            <label class="input-group-text col-2" for="username">이메일(아이디)</label>
+            <input class="form-control form-control-sm" id="username" name="username" type="email">
           </div>
           <div class="input-group input-group-sm mb-	3">
             <label class="input-group-text col-2" for="password">패스워드</label>
             <input class="form-control form-control-sm" id="password" name="password" type="password">
           </div>
           <div class="input-group input-group-sm mb-3">
-            <label class="input-group-text col-2" for="birthdate">생년월일</label>
-            <input class="form-control form-control-sm" id="birthdate" name="birthdate" type="date">
+            <label class="input-group-text col-2" for="birth">생년월일</label>
+            <input class="form-control form-control-sm" id="birth" name="birth" type="date">
           </div>
           <div class="input-group input-group-sm mb-3">
             <label class="input-group-text col-2" for="nickname">닉네임</label>
@@ -42,6 +42,7 @@
         <button id="save" class="btn btn-outline-dark" type="submit">가입하기</button>
       </div>
       <hr>
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     </form>
   </main>
 
