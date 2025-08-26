@@ -64,8 +64,9 @@ public class TodoRepositoryTest {
   }
 
   @Test
-  @Disabled // 테스트 안함
+  // @Disabled // 테스트 안함
   void saveDummies() {
+    todoRepository.deleteAll(); // 엔티티(테이블 행) 전체 삭제
     String[] names = { "himedia", "iclass" };
     String[] todos = { "청소", "운동", "영어공부", "회의" };
     List<TodoEntity> list = new ArrayList<>();
