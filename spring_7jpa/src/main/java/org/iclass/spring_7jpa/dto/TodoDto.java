@@ -29,7 +29,7 @@ public class TodoDto {
 
   // 편의상 entity 와 dto 사이의 변환 메소드 작성하기
 
-  // findXXXXX() - select
+  // findXXXXX() - select : 리턴 dto 는 응답 dto
   public static TodoDto of(TodoEntity entity) {
     return TodoDto.builder()
         .id(entity.getId())
@@ -41,15 +41,15 @@ public class TodoDto {
         .build();
   }
 
-  // save() - insert,update
+  // save() - insert,update : 인자 dto 는 요청 dto
   public static TodoEntity toEntity(TodoDto dto) {
     return TodoEntity.builder()
-        .id(dto.getId())
+        // .id(dto.getId())
         .title(dto.getTitle())
-        .checked(dto.getChecked())
+        // .checked(dto.getChecked())
         .todo_date(dto.getTodo_date())
         .username(dto.getUsername())
-        .createdAt(dto.getCreatedAt())
+        // .createdAt(dto.getCreatedAt())
         .build();
   }
 }

@@ -28,6 +28,8 @@ public interface TodoRepository extends JpaRepository<TodoEntity, Long> {
   List<TodoEntity> findByCreatedAtAfter(LocalDateTime createdAt);
   // where createAt > ?
 
+  boolean existsByUsername(String username);
+
   // ✅직접 SQL 작성
   // 1) 네이티브 SQL 예시 : nativeQuery = true 속성 필수
   // ⭕ FROM todo_test(테이블이름) ⭕ AND done = 0 (컬럼명 done, 컬럼값 0 또는 1)

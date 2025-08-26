@@ -27,7 +27,11 @@ public class TodoService {
     List<TodoEntity> entityList = todoRepository.findByUsernameOrderByCreatedAtDesc(username);
     return entityList.stream().map(TodoDto::of).collect(Collectors.toList());
     // entityList 의 요소를 순서대로 하나씩 map 메소드의 인자로 전달 -> TodoDto.of(인자)
-    //  -> 실행 결과를 모아서 새로운 리스트 생성 
+    // -> 실행 결과를 모아서 새로운 리스트 생성
+  }
+
+  public boolean validUser(String username) {
+    return todoRepository.existsByUsername(username);
   }
 
 }

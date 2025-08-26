@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
 @Slf4j
-@RestController
+@RestController   // @ResponseBody  가 포함 (dto 를 json 으로 변환)
 public class APICommentsController {
   /*
    * URL (EndPoint)
@@ -30,7 +30,7 @@ public class APICommentsController {
 
   private CommentsService commentsService;
 
-  @PostMapping("/api/comments")
+  @PostMapping("/api/comments")   // @ResponseBody 로 처리된 문자열과 응답 상태 코드 클라이언트에게 리턴
   public ResponseEntity<?> commentSave(@RequestBody CommunityCommentDTO dto) {
     int result = commentsService.commentSave(dto);
     // 잘못된 값으로 예외가 생기면 Exception 처리하는 코드가 필요.(@Valid, dto 에 검증할 내용 작성)
