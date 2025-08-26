@@ -17,7 +17,7 @@ public class SecurityConfig {
   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     log.info(">>>>>>>>>>>> 커스텀 시큐리티 필터 체인 동작 <<<<<<<<<<<<");
     http.authorizeHttpRequests(auth -> auth
-        .requestMatchers("/", "/login").permitAll()
+        .requestMatchers("/", "/login", "/signup", "/css/**").permitAll()
         .anyRequest().authenticated());
 
     http.formLogin(login -> login
