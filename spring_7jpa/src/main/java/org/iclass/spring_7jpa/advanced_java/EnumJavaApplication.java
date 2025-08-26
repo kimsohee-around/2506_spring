@@ -7,7 +7,9 @@ public class EnumJavaApplication {
   public static void main(String[] args) {
     System.out.println("enum 테스트");
     Day today = Day.MONDAY;
-    System.out.println("today : " + today); // MONDAY 출력 => 열거형의 재정의된 today.toString() 실행
+    System.out.println("today : " + today); // "MONDAY" 출력 => 열거형의 재정의된 today.toString() 실행
+    // toString() 처럼 재정의 못함.
+    System.out.println("string 으로 바꾸면 ? " + today.name());    // "MONDAY" 출력
     System.out.println("Day values : " + Day.values()); // 우리가 정의한 상수를 모두 리스트로 반환
     System.out.println("---- 모든 Day 출력하기 ----");
     for (Day d : Day.values()) {

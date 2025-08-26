@@ -67,15 +67,15 @@ public class TodoRepositoryTest {
   // @Disabled // 테스트 안함
   void saveDummies() {
     todoRepository.deleteAll(); // 엔티티(테이블 행) 전체 삭제
-    String[] names = { "himedia", "iclass" };
+    String[] names = { "himedia", "iclass", "momo" };
     String[] todos = { "청소", "운동", "영어공부", "회의" };
     List<TodoEntity> list = new ArrayList<>();
     // for(int i=1;i<=20;i++)
     LocalDate baseTime = LocalDate.of(2025, 8, 1); // 기준날짜
-    IntStream.rangeClosed(1, 20).forEach(i -> {
+    IntStream.rangeClosed(1, 21).forEach(i -> {
       TodoEntity entity = TodoEntity.builder()
           .title(todos[i % 4])
-          .username(names[i % 2])
+          .username(names[i % 3])
           .todo_date(baseTime.plusDays(i)) // 기준날짜 + i 일
           .checked(i % 2 == 0) // 참이면 1, 거짓이면 0
           .build();
@@ -89,8 +89,8 @@ public class TodoRepositoryTest {
   @Test
   void saveOne() {
     TodoEntity entity = TodoEntity.builder()
-        .title("JPA 숙제3")
-        .username("momo3")
+        .title("JPA 숙제4")
+        .username("momo4")
         .todo_date(LocalDate.of(2025, 8, 25))
         .build();
     TodoEntity saveEntity = todoRepository.save(entity);

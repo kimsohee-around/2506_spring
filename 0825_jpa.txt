@@ -2,7 +2,7 @@
 spring: 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create   # validate, update, none
     properties:
       hibernate:
         '[format_sql]': true
@@ -37,17 +37,17 @@ findAll(Sort sort)	정렬 조건에 따라 전체 조회
 findAll(Pageable p)	페이징 처리된 전체 조회
 
 ------------------------------------------
-커스텀 메소드 정의 : 메소드 이름을 해석해서 쿼리를 자동 생성합니다.
+✅커스텀 메소드 정의 : 메소드 이름을 해석해서 쿼리를 자동 생성합니다.
 List<T> findByName(String name); // name으로 조회
 List<T> findByAgeGreaterThan(int age); // age가 특정 값보다 큰 사용자 조회
 
-
+✅ 개발자가 직접 SQL 작성 방법
 1) 네이티브 SQL 예시
-@Query(value = "SELECT * FROM todo_entity WHERE username = :username AND done = false", nativeQuery = true)
+@Query(value = "SELECT * FROM todo_test WHERE username = :username AND done = false", nativeQuery = true)
 List<TodoEntity> findIncompleteTodosByUsernameNative(@Param("username") String username);
 
-2) JPQL 예시
-@Query("SELECT t FROM TodoEntity t WHERE t.username = :username AND t.done = false")
+2) JPQL(엔티티와 그 필드를 대상으로 SQL) 예시 
+@Query("SELECT t FROM TodoEntity t WHERE t.username = :username AND t.checked = false")
 List<TodoEntity> findIncompleteTodosByUsername(@Param("username") String username);
 
 
@@ -57,7 +57,7 @@ List<TodoEntity> findIncompleteTodosByUsername(@Param("username") String usernam
    │   내부적으로 EntityManager 호출
    ▼
 [EntityManager] (JPA 표준 API)
-   │   영속성 컨텍스트 관리
+   │   영속성(JPA) 컨텍스트 관리
    ▼
 [Hibernate] (JPA 구현체)
    │   JPQL → SQL 변환
@@ -72,8 +72,6 @@ List<TodoEntity> findIncompleteTodosByUsername(@Param("username") String usernam
 [Hibernate → EntityManager → Repository
 
 -------------------------------------------------------
-
-
 
 5.  JPQL (Java Persistence Query Language)
 
@@ -94,5 +92,11 @@ EntityManager가 관리하며, 엔티티 객체를 저장하고 조회하는 "�
 -특징
 1차 캐시 : 같은 트랜잭션 안에서 조회 시, DB에 재조회하지 않고 캐시에서 바로 가져옴.
 (→ 성능 최적화)
-동일성 보장 : 같은 값의 엔티티는 항상 같은 객체 인스턴스로 관리됨.
+동일성 보장 : 같은 값의 엔티티는 항상 같은 객체 인스턴스로 관리됨.(엔티티는 자동으로 불변객체)
+
+
+
+
+
+
 
