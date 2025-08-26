@@ -1,0 +1,115 @@
+
+✅ 세션 인증    : SSR   (서버 템플릿 엔진)
+     @Controller  (MVC 패턴)
+
+✅ Jwt 토큰 인증 : CSR (같은 도메인이 아닌 리액트에서 요청 보냄) 
+     @RestController
+
+0. Filter
+
+Controller 에 요청을 보내면 처리과정
+
+dispatcherServelt : URL 에 따라 처리할 컨트롤러-핸들러 메소드를 매핑
+    |
+  Filter  : 요청을 처리 하기전, 응답을 보내기 전에 실행되는 특별한 서블릿
+          :  Security는  Filter 를 활용해서 인증/인가 작업 수행
+    |
+GET /api/todos    userList() 메소드가 처리
+
+
+1. 의존성 추가 : spring security 6.x
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-security</artifactId>
+	</dependency>
+
+2. 스프링 시큐리티 
+- 인증(authentication)  : 신원(사용자) 확인. 기본 로그인
+- 인가(authorization)   : 역할(role), 권한에 따라 접근 허용
+
+3. 프로젝트 생성하고 테스트 하기
+
+0) security 의존성 추가
+1) URL -> index.html  : 여러가지 메뉴 링크를 작성.
+2)           sample.css  : 테스트용 (※ static 정적리소스에 대해서도 요청 처리 설정 필요함.)
+3) 실행 -> 시큐리티가 만들어준 로그인 페이지가 자동으로 브라우저에 보였음.
+          -> vs code 콘솔에 시큐리티가 발급한 임시 비밀번호 복사해서 임시 사용자 user 로그인
+          -> index.html 화면이 보였음.
+          -> 스프링시큐리티 기본 동작은 모든 url 은 로그인이 필요함.
+          -> 메뉴 항목 /login, /signup 에 해당하는 컨트롤러, html 기본 작성
+          -> 로그인 뿐만아니라 로그아웃도 자동으로 시큐리티가 처리(GET)를 해 줍니다.
+              http://localhost:8080/logout  요청 보내기
+
+4 . 시큐리티 기본 동작 변경하기 - @Configuration 클래스 생성해서 작성.
+        "/","/home","/login","/css/**","/js/**",""/images/**"" :  해당 URL 은 인증(로그인) 없이도 접근 허용.
+        그 외에 다른 URL (anyRequest)   : 인증이 되어야 함.
+
+     SecurityFilterChain 타입의 스프링 Bean 생성.
+           : 스프링 시큐리티는 서블릿 필터 기반으로 동작하면서 DispatcherServlet 이
+            (모든 요청을 먼저 접수하고 핸들러 메소드와 매핑) 동작하기 전에
+            시큐리티 설정 내용이 실행됩니다.
+           : HttpSecurity 타입 객체를 인자로 받아서 필요한 보안 설정하고 리턴합니다.
+   @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        log.info(">>>>> Custom Security Filter Chain 동작 >>>>>>> ");
+
+        http.authorizeHttpRequests(
+                request -> request.requestMatchers("/","/login").permitAll()
+                                  .anyRequest().authenticated()
+            );
+
+       -> 여기 까지 하면 /,  /login 은 인증없이 접근 가능하지만 
+           시큐리티가 만든 로그인 페이지가 동작을 안합니다.
+        -> 로그인 페이지 설정해야 합니다.(컨트롤러, html) 
+
+        http  .formLogin(form -> form.loginPage("/login")
+                                  .defaultSuccessUrl("/").permitAll())
+      
+       -> 여기까지 하면 커스텀 로그인 페이지가 보이지만 로그인 Post 동작이 처리가 안됩니다.
+               .csrf(csrf-> csrf.disable());
+      -> 세션 로그인에서 form post 요청시 csrf disable은 바람직하지 않습니다. 시큐리티 권고 사항을 따른다면
+          form 태그 안에 아래 csrf 토큰값을 저장하도록 합니다.(csrf 활성화)
+        ※ <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                => post 방식의 form 제출 동작 정상 실행됩니다.
+
+      ->  로그인 커스텀페이지를 사용하면 로그아웃 설정도 필요합니다.
+      ->                            ㄴ 로그 아웃이 GET 요청 오류.(csrf 문제)
+      ->                            ㄴ 로그 아웃을 POST 방식으로 변경하고 로그 아웃 form 에
+                                         위의 ※  를 추가 했습니다. 그러면 잘됩니다.
+
+           http. .logout(logout -> logout.logoutUrl("/logout")
+                                .logoutSuccessUrl("/?logout").permitAll());
+        return http.build();
+    }
+
+5)  참고 : http.    formLogin()  메소드 인자가 없는 형식은 시큐리티 6버전에서는
+                                               deprecated.
+
+
+*결론*     시큐리티 Config  설정에 jwt 단어가 있으면 토큰 인증 방식입니다.
+                     ㄴ 토큰 인증에서는 .csrf(csrf-> csrf.disable()) 로 해도 문제가 없습니다.
+                             rest api는 토큰 인증을 사용하고,
+		   rest api 에서는 form 제출을 하지 않기 때문입니다.(일반적인 POST)
+
+           
+            # 인증 방법
+            1. 기본 인증 - username(아이디) 과 비밀번호로 로그인하면 JSESSIONID 와 같은
+                               쿠키 값으로 연결(세션)을 유지시키는 방법(문제점: 서버의 역할이 과중)
+                            ->전통적인 mvc에서 취약점 해결로 csrf 토큰 사용
+
+            2. jwt 토큰 인증 - 세션 유지하지 않습니다. 
+                         개발자가 서버단에서 토큰 발급과 검증 구현을 하고 애플리케이션에서
+                         처리하도록 합니다. 클라이언트는 이 토큰값을 요청마다 함께 헤더에
+                         전달하여 인증합니다. (공개키/개인키 기반의 암호화 적용하여 토큰생성)
+
+             (참고) 최근 웹애플리케이션 동향 :  서버와 클라이언트 프로그램을 분리 
+		(url이 기본적으로 포트가 다릅니다. 도메인네임도 다를수 있습니다.)                   
+                             서버는 rest api , 
+                             클라이언트는 자바스크립트(웹브라우저에 종속되지 않은 
+			런타임개발 라이브러리 react, vue, angular,......) 로 구현
+
+
+
+     
+
+    
