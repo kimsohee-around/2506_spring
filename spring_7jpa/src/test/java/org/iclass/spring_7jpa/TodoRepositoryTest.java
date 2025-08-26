@@ -89,8 +89,8 @@ public class TodoRepositoryTest {
   @Test
   void saveOne() {
     TodoEntity entity = TodoEntity.builder()
-        .title("JPA 숙제")
-        .username("momo")
+        .title("JPA 숙제3")
+        .username("momo3")
         .todo_date(LocalDate.of(2025, 8, 25))
         .build();
     TodoEntity saveEntity = todoRepository.save(entity);
