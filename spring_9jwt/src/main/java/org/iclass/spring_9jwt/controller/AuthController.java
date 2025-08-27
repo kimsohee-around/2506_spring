@@ -23,35 +23,33 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
-    
+
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
-    
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest request) {
         try {
-            // 사용자 인증
+            // 사용자 인증 객체 생성 : 인증 정보 일치하지 않으면 오류 발생
             Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                    request.getEmail(),
-                    request.getPassword()
-                )
-            );
-            
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(),
+                            request.getPassword()));
+
             // JWT 토큰 생성
             String token = jwtTokenProvider.createToken(authentication);
-            
-            // 사용자 정보 조회
+
+            // 사용자 정보 조회 : authentication 객체에 담긴 내용 중 principal 만 가져오기
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            
+
             LoginResponse response = LoginResponse.builder()
-                .token(token)
-                .tokenType("Bearer")
-                .email(userDetails.getUsername())
-                .build();
-                
-            return ResponseEntity.ok(response);
-            
+                    .token(token)
+                    .tokenType("Bearer")
+                    .email(userDetails.getUsername())
+                    .build();
+
+            return ResponseEntity.ok().body(response); // ResponseEntity.ok(response);
+
         } catch (BadCredentialsException e) {
             throw new RuntimeException("Invalid credentials");
         }
