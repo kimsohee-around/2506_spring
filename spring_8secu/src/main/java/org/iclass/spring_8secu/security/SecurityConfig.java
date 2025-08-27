@@ -30,7 +30,11 @@ public class SecurityConfig {
 
     http.formLogin(login -> login
         .loginPage("/login")
-        .defaultSuccessUrl("/"));
+        .defaultSuccessUrl("/")
+        .failureUrl("/login?error")); // ?error 파라미터 이름. 값은 없음
+
+    http.logout(logout -> logout.logoutUrl("/logout")
+        .logoutSuccessUrl("/?logout"));
 
     return http.build();
   }

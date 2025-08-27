@@ -12,10 +12,16 @@
   <div>
     <div><a href="/">홈</a></div>
     <div><a href="/login">로그인</a></div>
-    <div><a href="/logout">로그아웃</a></div>
+    <div><a href="/logout">로그아웃(GET)-오류</a></div>
     <div><a href="/signup">회원가입</a></div>
     <div><a href="/board/list">인증 게시판</a></div>
-
+    <div>스프링 시큐리티의 로그아웃은 POST 요청으로 합니다.</div>
+    <form action="/logout" method="POST">
+      <button>로그아웃</button>
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    </form>
+    <hr>
+    <div th:if="${param.logout}">로그아웃 되었습니다.</div>
   </div>
 
 

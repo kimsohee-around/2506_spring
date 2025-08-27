@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class UsersController {
+
   private UsersService usersService;
 
   @GetMapping("/login")
