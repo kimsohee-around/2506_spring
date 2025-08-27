@@ -31,8 +31,8 @@
       <a href="/signup">회원가입</a>
     </div>
     <!-- 인증 정보가 있을 때만 -->
-    <div>
-      <div sec:authorize="isAuthenticated()">
+    <div sec:authorize="isAuthenticated()">
+      <div>
         <span th:text="${#authentication.name}"></span> 님 환영합니다.!
       </div>
       <div>
