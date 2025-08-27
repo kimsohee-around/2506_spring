@@ -59,13 +59,13 @@ public class UsersEntity {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @PrePersist
+    @PrePersist       // save() - PrePersist - insert sql
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
 
-    @PreUpdate
+    @PreUpdate       // save() - PreUpdate - update sql
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
