@@ -27,57 +27,57 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class BoardController {
-    
+
     private final BoardService boardService;
-    
+
     @GetMapping
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<BoardResponse>> getAllBoards() {
         List<BoardResponse> boards = boardService.getAllBoards();
         return ResponseEntity.ok(boards);
     }
-    
+
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<BoardResponse> getBoard(@PathVariable Long id) {
         BoardResponse board = boardService.getBoard(id);
         return ResponseEntity.ok(board);
     }
-    
+
     @PostMapping
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<BoardResponse> createBoard(
             @RequestBody @Valid BoardRequest request,
             Authentication authentication) {
-        
+
         String userEmail = authentication.getName();
         BoardResponse board = boardService.createBoard(request, userEmail);
-        
+
         return ResponseEntity.status(HttpStatus.CREATED).body(board);
     }
-    
+
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<BoardResponse> updateBoard(
             @PathVariable Long id,
             @RequestBody @Valid BoardRequest request,
             Authentication authentication) {
-        
+
         String userEmail = authentication.getName();
         BoardResponse board = boardService.updateBoard(id, request, userEmail);
-        
+
         return ResponseEntity.ok(board);
     }
-    
+
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteBoard(
             @PathVariable Long id,
             Authentication authentication) {
-        
+
         String userEmail = authentication.getName();
         boardService.deleteBoard(id, userEmail);
-        
+
         return ResponseEntity.noContent().build();
     }
 }
