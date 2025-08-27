@@ -34,17 +34,18 @@ public class SampleDataTest {
   @Test
   @Order(2)
   void createBoards() {
-
+    boardRepository.deleteAll();
+    LocalDateTime baseTime = LocalDateTime.of(2025, 8, 10, 0, 0, 0);
     IntStream.rangeClosed(1, 20).forEach(i -> {
-      LocalDateTime baseTime = LocalDateTime.of(2025, 8, 10, 0, 0, 0);
       BoardEntity board = BoardEntity.builder()
           .title("오늘의 명언 " + i)
           .content("하늘은 스스로 돕는자를 돕는다.")
           .username(users.get(i % 5))
-          .createdAt(baseTime.plusDays(i).plusHours(i).plusMinutes(i))
-          .updatedAt(baseTime.plusHours(i + 5))
           .build();
-      boardRepository.save(board);
+      boardRepository.save(board); // insert
+      board.setCreatedAt(baseTime.plusDays(i + 10).plusHours(i).plusMinutes(i));
+      board.setUpdatedAt(board.getCreatedAt().plusHours(i + 5));
+      boardRepository.save(board); // update
     });
 
   }
