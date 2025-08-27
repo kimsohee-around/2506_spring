@@ -1,0 +1,31 @@
+  [[ 로그인 구현하기 ]]
+
+1.  스프링 시큐리티리를 통한 인증/인가에서는 
+
+    사용자 로그인 정보를 
+    시큐리티 UserDetails  인터페이스 구현 클래스에 저장해야 합니다.
+    시큐리티 UserDetails  인터페이스 구현한 User 클래스가 있습니다.
+    -> 방법1) 스프링 시큐리티 User 클래스를 상속 받아서 DTO 정의합니다.
+    -> 방법2) 새로운 DTO 정의하지 않고  시큐리티의 User 클래스 사용합니다.
+
+
+2. Username 과 Password 확인은 
+   UserDetailsService 인터페이스를 구현한 클래스를 개발자가 직접 작성합니다.
+   ㄴ CustomUserDetailsService  구현하기
+   ㄴ 시큐리티가 /login POST 요청을 처리할 때 사용할 서비스 입니다.
+
+   재정의 메소드:  public UserDetails loadUserByUsername(String username)
+   리턴타입: UserDetails
+   파라미터 : String username 은 로그인 페이지 input name="username" 의 값을 가져옵니다.
+   
+   실행 내용 : UserDetails 에 로그인 요청한 사용자 정보 조회/저장해서 리턴하기
+
+   ==> /login  의 Post 요청입니다.(스프링 시큐리티가 담당하여 실행합니다.)
+          userDetails 에 저장된 database 비밀번호 값과 
+                 사용자가 입력한 비밀번호가 같으면
+                 사용자 인증 정보 authentication 객체에 저장합니다.
+
+3. 사용자 테이블의 패스워드는 PasswordEncoder 로 해시인코딩(암호화)를 해야합니다.
+   @Bean 으로 PasswordEncoder 는 미리 생성합니다.
+
+4. 필요에 따라 인가(권한) 정보를 저장할 컬럼 : roles 컬럼 추가 

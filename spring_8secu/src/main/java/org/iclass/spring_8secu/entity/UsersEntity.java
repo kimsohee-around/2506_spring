@@ -30,7 +30,7 @@ public class UsersEntity {
   @Column(nullable = false)
   private String name;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private String username; // email 또는 계정아이디 등 로그인에 사용하는 계정이름
 
   private String password; // 해시함수 인코딩(암호화)
