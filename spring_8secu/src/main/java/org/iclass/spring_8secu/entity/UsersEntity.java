@@ -31,9 +31,9 @@ public class UsersEntity {
   private String name;
 
   @Column(nullable = false)
-  private String username; // email 또는 계정아이디
+  private String username; // email 또는 계정아이디 등 로그인에 사용하는 계정이름
 
-  private String password;
+  private String password; // 해시함수 인코딩(암호화)
 
   private LocalDate birth;
 

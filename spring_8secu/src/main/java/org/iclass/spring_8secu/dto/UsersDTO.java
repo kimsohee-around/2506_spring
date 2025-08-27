@@ -38,6 +38,7 @@ public class UsersDTO {
 
   }
 
+  // 리포지토리 save() 메소드에서 필요
   public static UsersEntity toEntity(UsersDTO dto) {
     return UsersEntity.builder()
         .id(dto.getId())
