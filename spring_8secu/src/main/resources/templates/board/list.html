@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="UTF-8">
@@ -8,6 +8,19 @@
 
 <body>
   <h1>LIST</h1>
+  <hr>
+  <!-- 인증 정보가 있을 때만 -->
+  <div sec:authorize="isAuthenticated()">
+    <span th:text="${#authentication.name}"></span>
+    <span th:text="${#authentication.authorities}"></span>
+    <div>
+      <form action="/logout" method="POST">
+        <button>로그아웃</button>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+      </form>
+    </div>
+  </div>
+
 </body>
 
 </html>

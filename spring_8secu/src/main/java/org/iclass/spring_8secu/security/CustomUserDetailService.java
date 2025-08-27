@@ -27,7 +27,8 @@ public class CustomUserDetailService implements UserDetailsService {
         .username(user.getUsername())
         .password(user.getPassword())
         .build(); // 테이블의 값을 User 객체에 저장하면 /login Post 요청 처리 필터가 사용자 입력 패스워드와 비교를 합니다.
-    // 일치하면 User 타입의 객체를 리턴. 일치하지 않으면 /login GET 리다이렉트
+    // 일치하면 User 타입의 객체를 리턴. => Authentication 객체 에 저장합니다.
+    // 일치하지 않으면 /login GET 리다이렉트
   }
 
 }
