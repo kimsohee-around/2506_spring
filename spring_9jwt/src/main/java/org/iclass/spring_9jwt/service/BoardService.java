@@ -33,6 +33,14 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
 
+    // 내 글 보기
+    public List<BoardResponse> getMyBoards(String username) {
+        List<BoardEntity> boards = boardRepository.findByUsernameOrderByCreatedAtDesc(username);
+        return boards.stream()
+                .map(this::convertToResponse)
+                .collect(Collectors.toList());
+    }
+
     public BoardResponse getBoard(Long id) {
         BoardEntity board = boardRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Board not found: " + id));
