@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,15 +32,17 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    // 권한 OR. 권한이 여러개 설정한 경우 hasRole('ADMIN') and hasRole('USER') 와 같이 and 조건 가능
     public ResponseEntity<List<BoardResponse>> getAllBoards() {
         List<BoardResponse> boards = boardService.getAllBoards();
         return ResponseEntity.ok(boards);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<BoardResponse> getBoard(@PathVariable Long id) {
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    public ResponseEntity<BoardResponse> getBoard(
+            @Parameter @PathVariable("id") Long id) {
         BoardResponse board = boardService.getBoard(id);
         return ResponseEntity.ok(board);
     }
@@ -59,7 +62,7 @@ public class BoardController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<BoardResponse> updateBoard(
-            @PathVariable Long id,
+            @Parameter @PathVariable("id") Long id,
             @RequestBody @Valid BoardRequest request,
             Authentication authentication) {
 
@@ -70,9 +73,9 @@ public class BoardController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')") // ADMIN 권한 테스트용
     public ResponseEntity<Void> deleteBoard(
-            @PathVariable Long id,
+            @Parameter @PathVariable("id") Long id,
             Authentication authentication) {
 
         String userEmail = authentication.getName();

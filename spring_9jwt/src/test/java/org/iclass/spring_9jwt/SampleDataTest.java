@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +29,9 @@ public class SampleDataTest {
 
   @Autowired
   private BoardRepository boardRepository;
+
+  @Autowired
+  private PasswordEncoder passwordEncoder;
 
   static List<String> users = new ArrayList<>();
 
@@ -57,33 +61,33 @@ public class SampleDataTest {
                        // 패스워드($2a$10$BW.5rjYerdxWkA3//MdCwOgUFZpW5jQIfvOsWEBOQJSwVc9ayh.DK),username,role
     userRepository.deleteAll();
     UsersEntity user = UsersEntity.builder()
-        .name("홍길동").password("$2a$10$BW.5rjYerdxWkA3//MdCwOgUFZpW5jQIfvOsWEBOQJSwVc9ayh.DK")
+        .name("홍길동").password(passwordEncoder.encode("1111"))
         .username("gd@naver.com").role(Role.USER)
         .build();
     users.add(user.getUsername());
     userRepository.save(user);
 
     user = UsersEntity.builder()
-        .name("김모모").password("$2a$10$BW.5rjYerdxWkA3//MdCwOgUFZpW5jQIfvOsWEBOQJSwVc9ayh.DK")
+        .name("김모모").password(passwordEncoder.encode("1234"))
         .username("mm@gmail.com").role(Role.USER)
         .build();
     users.add(user.getUsername());
     userRepository.save(user);
 
     user = UsersEntity.builder()
-        .name("이하니").password("$2a$10$BW.5rjYerdxWkA3//MdCwOgUFZpW5jQIfvOsWEBOQJSwVc9ayh.DK")
+        .name("이하니").password(passwordEncoder.encode("9999"))
         .username("honey@naver.com").role(Role.ADMIN)
         .build();
     users.add(user.getUsername());
     userRepository.save(user);
     user = UsersEntity.builder()
-        .name("김나연").password("$2a$10$BW.5rjYerdxWkA3//MdCwOgUFZpW5jQIfvOsWEBOQJSwVc9ayh.DK")
+        .name("김나연").password(passwordEncoder.encode("1111"))
         .username("ny@daum.net").role(Role.USER)
         .build();
     users.add(user.getUsername());
     userRepository.save(user);
     user = UsersEntity.builder()
-        .name("최사나").password("$2a$10$BW.5rjYerdxWkA3//MdCwOgUFZpW5jQIfvOsWEBOQJSwVc9ayh.DK")
+        .name("최사나").password(passwordEncoder.encode("1111"))
         .username("sana@naver.com").role(Role.USER)
         .build();
     users.add(user.getUsername());
